@@ -8,14 +8,14 @@ namespace The_Garage_Exercise
     internal class Garage
     {
 
-        Vehicle[] vehicles;
+        private Vehicle[] vehicles;
 
         public Garage(int parkingSpots)
         {
             vehicles = new Vehicle[parkingSpots];
         }
 
-        public int findEmptySpot(out bool spotFound)        //Returns a spot number, and a bool confirming the find
+        public int FindEmptySpot(out bool spotFound)        //Returns a spot number, and a bool confirming the find
         {
             int emptySpot;
             spotFound = false;
@@ -33,9 +33,9 @@ namespace The_Garage_Exercise
             //Vehicle spot = System.Array.Find(vehicles, p => p is null);
         }
 
-        public void parkVehicle(Vehicle vehicle)
+        public void ParkVehicle(Vehicle vehicle)
         {
-            int parkingSpot = findEmptySpot(out bool success);
+            int parkingSpot = FindEmptySpot(out bool success);
 
             if (success)
             {
@@ -51,6 +51,5 @@ namespace The_Garage_Exercise
             }
             //Possibly return the message as a string?
         }
-
     }
 }
