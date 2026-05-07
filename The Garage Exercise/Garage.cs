@@ -51,5 +51,25 @@ namespace The_Garage_Exercise
             }
             //Possibly return the message as a string?
         }
+
+        public void RemoveVehicle(Vehicle vehicle)
+        {
+
+        }
+
+        public void DestroyVehicle(Vehicle vehicle)
+        {
+
+        }
+
+        public void DestroyGarage()
+        {
+
+        }
+
+        public void ListParkedVehicles()
+        {
+
+        }
     }
 }
