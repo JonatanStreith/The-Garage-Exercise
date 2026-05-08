@@ -7,17 +7,17 @@ namespace The_Garage_Exercise
 {
     internal class Garage
     {
-
+        public readonly int numberOfParkingSpots;
         private Vehicle[] vehicles;
 
-        public Garage(int parkingSpots)
+        public Garage(int numberOfParkingSpots)
         {
-            vehicles = new Vehicle[parkingSpots];
+            vehicles = new Vehicle[numberOfParkingSpots];
+            this.numberOfParkingSpots =numberOfParkingSpots;
         }
 
         public int FindEmptySpot(out bool spotFound)        //Returns a spot number, and a bool confirming the find
         {
-            int emptySpot;
             spotFound = false;
 
             for (int i = 0; i < vehicles.Length; i++)
