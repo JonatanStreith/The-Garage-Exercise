@@ -4,16 +4,16 @@ using System.Text;
 
 namespace The_Garage_Exercise
 {
-    internal class Menu
+    internal static class Menu
     {
-        string openingText = "Welcome to the Garage! We accept all vehicles!" +
+        static readonly string openingText = "Welcome to the Garage! We accept all vehicles!" +
             "\nService desk hours are 9:00-19:00. Closed february 12th for repairs." +
             "\nMake sure all garbage is placed in appropriate containers" +
             "\nand all outstanding fees are paid within 9 workdays." +
             "\nFailure to comply may result in vehicular reposession or destruction." +
             "\n";
 
-        string listOfChoices = "Options are:" +
+        static readonly string listOfChoices = "Options are:" +
             "\n" +
             "\n(P)ark vehicle (in available spot)" +
             "\n(R)etrieve vehicle" +
@@ -22,14 +22,14 @@ namespace The_Garage_Exercise
             "\n(S)earch for vehicle" +
             "\n(Q)uit and leave the garage" +
             "\n";
-        public void DisplayMenu()
+        public static void DisplayMenu()
         {
             Console.WriteLine(openingText);
             Console.WriteLine(listOfChoices);
             Console.Write("Please make a selection: ");
         }
 
-        public void MakeChoice(string choice)
+        public static void MakeChoice(string choice, Garage garage)
         {
             switch (choice)
             {
