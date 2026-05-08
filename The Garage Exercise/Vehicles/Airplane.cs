@@ -47,19 +47,32 @@ namespace The_Garage_Exercise.Vehicles
                 "\nand length (number in centimeters).");
             string[] typeInfo = Console.ReadLine().Split(",");
 
-            Console.WriteLine("Thank you. Generating registry information...");
-
-            Airplane airplane = new Airplane(ownership[1], ownership[0],
-                generalInfo[0], generalInfo[1], generalInfo[2],
-                typeInfo[0], typeInfo[1], typeInfo[2], typeInfo[3], typeInfo[3]
+            bool validInputs = (    //Assessing if all these inputs are valid
+                int.TryParse(generalInfo[1], out int numWheels) &
+                Mobility.TryParse(generalInfo[2], out Mobility mobility) &
+                int.TryParse(typeInfo[0], out int numEngines) &
+                int.TryParse(typeInfo[1], out int cylVolume) &
+                FuelType.TryParse(typeInfo[2], out FuelType fuelType) &
+                int.TryParse(typeInfo[3], out int numSeats) &
+                int.TryParse(typeInfo[4], out int length)
                 );
 
+            if (validInputs)
+            {
+                Console.WriteLine("Thank you. Generating registry information...");
 
+                return new Airplane(ownership[1], ownership[0],
+                generalInfo[0], numWheels, mobility,
+                numEngines, cylVolume, fuelType, numSeats, length
+                );
+            }
 
-
-            return null;
-
-
+            else
+            {
+                Console.WriteLine("There were errors and the registration could not be completed." +
+                "\nPlease try again later.");
+                return null;
+            }
         }
 
     }
