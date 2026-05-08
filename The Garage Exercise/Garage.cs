@@ -72,7 +72,7 @@ namespace The_Garage_Exercise
 
         }
 
-        public void PopulateGarage()
+        public void PopulateGarage(int number)
         {
 
         }
