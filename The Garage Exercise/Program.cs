@@ -12,6 +12,10 @@
             Console.WriteLine("\nA new garage has been erected.");
 
             PopulateOrNot(garage);
+
+            Menu.DisplayMenu();
+
+            Menu.MakeChoice(garage);
         }
 
         public static int SizeGarage()
