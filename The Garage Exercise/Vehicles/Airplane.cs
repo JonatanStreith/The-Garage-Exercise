@@ -43,16 +43,16 @@ namespace The_Garage_Exercise.Vehicles
 
             Console.WriteLine("Please specify technical details: " +
                 "\nNumber of engines (number), cylinder volume (number), " +
-                "\nfuel type (gasoline or dieslel) number of seats (number)" +
+                "\nfuel type (gasoline or dieslel), number of seats (number)" +
                 "\nand length (number in centimeters).");
             string[] typeInfo = Console.ReadLine().Split(",");
 
             bool validInputs = (    //Assessing if all these inputs are valid
                 int.TryParse(generalInfo[1], out int numWheels) &
-                Mobility.TryParse(generalInfo[2], out Mobility mobility) &
+                Mobility.TryParse(generalInfo[2].ToLower(), out Mobility mobility) &
                 int.TryParse(typeInfo[0], out int numEngines) &
                 int.TryParse(typeInfo[1], out int cylVolume) &
-                FuelType.TryParse(typeInfo[2], out FuelType fuelType) &
+                FuelType.TryParse(typeInfo[2].ToLower(), out FuelType fuelType) &
                 int.TryParse(typeInfo[3], out int numSeats) &
                 int.TryParse(typeInfo[4], out int length)
                 );
