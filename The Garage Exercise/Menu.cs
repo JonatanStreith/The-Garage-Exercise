@@ -6,7 +6,7 @@ namespace The_Garage_Exercise
 {
     internal static class Menu
     {
-        static readonly string openingText = "Welcome to the Garage! We accept all vehicles!" +
+        static readonly string openingText = "\nWelcome to the Garage! We accept all vehicles!" +
             "\nService desk hours are 9:00-19:00. Closed february 12th for repairs." +
             "\nMake sure all garbage is placed in appropriate containers" +
             "\nand all outstanding fees are paid within 9 workdays." +
@@ -25,59 +25,69 @@ namespace The_Garage_Exercise
         public static void DisplayMenu()
         {
             Console.WriteLine(openingText);
-            Console.WriteLine(listOfChoices);
-            Console.Write("Please make a selection: ");
         }
 
-        public static void MakeChoice(string choice, Garage garage)
+        public static void MakeChoice(Garage garage)
         {
-            switch (choice)
+
+            while (true)
             {
-                case "P":
-                case "Park":
-                    {
-                        break;
-                    }
+                Console.WriteLine(listOfChoices);
+                Console.Write("Please make a selection: ");
 
-                case "R":
-                case "Retrieve":
-                    {
-                        break;
-                    }
+                string choice = Capitalize(Console.ReadLine());
 
-                case "L":
-                case "List":
-                    {
-                        break;
-                    }
+                switch (choice)
+                {
+                    case "P":
+                    case "Park":
+                        {
+                            Console.WriteLine("p");
+                            break;
+                        }
 
-                case "T":
-                case "Types":
-                    {
-                        break;
-                    }
+                    case "R":
+                    case "Retrieve":
+                        {
+                            Console.WriteLine("r");
+                            break;
+                        }
 
-                case "S":
-                case "Search":
-                    {
-                        break;
-                    }
+                    case "L":
+                    case "List":
+                        {
+                            Console.WriteLine("l");
+                            break;
+                        }
 
-                case "Q":
-                case "Quit":
-                    {
-                        break;
-                    }
+                    case "T":
+                    case "Types":
+                        {
+                            Console.WriteLine("t");
+                            break;
+                        }
+
+                    case "S":
+                    case "Search":
+                        {
+                            Console.WriteLine("s");
+                            break;
+                        }
+
+                    case "Q":
+                    case "Quit":
+                        {
+                            Console.WriteLine("q");
+                            return;
+                        }
 
 
-                default:
-                    {
-                        Console.WriteLine("That is not an acceptable choice."); ;
-                        break;
-                    }
-
-
-
+                    default:
+                        {
+                            Console.WriteLine("That is not an acceptable choice."); ;
+                            break;
+                        }
+                }
             }
         }
 
