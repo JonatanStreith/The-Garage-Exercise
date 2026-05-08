@@ -42,14 +42,14 @@ namespace The_Garage_Exercise
                     case "P":
                     case "Park":
                         {
-                            Console.WriteLine("p");
+                            garage.ParkVehicle();
                             break;
                         }
 
                     case "R":
                     case "Retrieve":
                         {
-                            Console.WriteLine("r");
+                            garage.RetrieveVehicle();
                             break;
                         }
 
@@ -87,6 +87,8 @@ namespace The_Garage_Exercise
                             Console.WriteLine("That is not an acceptable choice."); ;
                             break;
                         }
+
+                        //TODO: Make all menu actions return a confirmation string.
                 }
             }
         }
