@@ -6,8 +6,8 @@ namespace The_Garage_Exercise
 {
     internal enum Mobility
     {
-        Ground,
-        Water,
-        Air
+        ground,
+        water,
+        air
     }
 }

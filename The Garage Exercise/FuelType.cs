@@ -6,7 +6,7 @@ namespace The_Garage_Exercise
 {
     internal enum FuelType
     {
-        Gasoline,
-        Diesel
+        gasoline,
+        diesel
     }
 }
