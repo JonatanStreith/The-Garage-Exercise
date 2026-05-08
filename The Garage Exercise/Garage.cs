@@ -54,27 +54,29 @@ namespace The_Garage_Exercise
 
         public void RemoveVehicle(Vehicle vehicle)
         {
+            Console.WriteLine("Vehicle will be removed.");
 
         }
 
         public void DestroyVehicle(Vehicle vehicle)
         {
+            Console.WriteLine("Preparing wrecking crew...");
 
         }
 
         public void DestroyGarage()
         {
-
+            Console.WriteLine("Garage is slated for destruction.");
         }
 
         public void ListParkedVehicles()
         {
-
+            Console.WriteLine("Listing vehicles.");
         }
 
         public void PopulateGarage(int number)
         {
-
+            Console.WriteLine("Garage is being populated, probably.");
         }
     }
 }
