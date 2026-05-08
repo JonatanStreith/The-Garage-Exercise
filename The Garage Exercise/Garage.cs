@@ -33,6 +33,18 @@ namespace The_Garage_Exercise
             //Vehicle spot = System.Array.Find(vehicles, p => p is null);
         }
 
+        public void ParkVehicle()
+        {
+            Console.WriteLine("You have chosen to park your vehicle.");
+            Vehicle vehicle = Vehicle.RegisterVehicle();
+
+            if (vehicle != null)
+            {
+                ParkVehicle(vehicle);
+            }
+            else
+                Console.WriteLine("Parking aborted.");
+        }
         public void ParkVehicle(Vehicle vehicle)
         {
             int parkingSpot = FindEmptySpot(out bool success);
@@ -50,6 +62,16 @@ namespace The_Garage_Exercise
                     "Please try another garage.");
             }
             //Possibly return the message as a string?
+        }
+
+        public void RetrieveVehicle()
+        {
+
+        }
+
+        public void RetrieveVehicle(Vehicle vehicle)
+        {
+
         }
 
         public void RemoveVehicle(Vehicle vehicle)
@@ -78,5 +100,6 @@ namespace The_Garage_Exercise
         {
             Console.WriteLine("Garage is being populated, probably.");
         }
+
     }
 }
