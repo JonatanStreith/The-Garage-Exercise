@@ -106,7 +106,6 @@ namespace The_Garage_Exercise
 
         }
 
-
         public void RemoveVehicle(Vehicle vehicle)
         {
             Console.WriteLine("Vehicle will be removed.");
@@ -233,6 +232,86 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
 
             return null;
+        }
+
+    public void FilterVehicle()
+        {
+            Console.WriteLine("You may search for vehicles by certain aspects.");
+            Console.WriteLine("\nWhich aspect would you like to search on? " +
+                "\n(Type, color, number (of wheels), mobility)");
+            string aspect = Console.ReadLine();
+
+            Console.WriteLine("And what are you looking for? (E.g. 'brown', 'car', 4, 'water')");
+            string value = Console.ReadLine().ToLower();
+
+            Vehicle[] results = RetrieveVehiclesByAspect(aspect, value);
+
+
+            Console.WriteLine($"{results.Length} vehicles found.");
+            foreach (Vehicle vehicle in results)
+            {
+                ListSingleVehicle(vehicle);
+            }
+
+        }
+
+        public Vehicle[] RetrieveVehiclesByAspect(string aspect, string value)
+        {
+            Vehicle[] filteredVehicles = null;
+
+            switch (aspect)
+            {
+                case "type":
+                    {
+                        return GetVehiclesByType(value);
+                        break;
+                    }
+                case "color":
+                    {
+                        return GetVehiclesByColor(value);
+                        break;
+                    }
+                case "number":
+                    {
+                        return GetVehiclesByWheels(value);
+                        break;
+                    }
+                case "mobility":
+                    {
+                        return GetVehiclesByMobility(value);
+                        break;
+                    }
+
+
+
+                default:
+                    {
+                        Console.WriteLine("This is not a known aspect.");
+                        return null;
+                        break;
+                    }
+            }
+        }
+
+        private Vehicle[] GetVehiclesByMobility(string value)
+        {
+            return vehicles.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+        }
+
+        private Vehicle[] GetVehiclesByWheels(string value)
+        {
+            return vehicles.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+        }
+
+        private Vehicle[] GetVehiclesByColor(string value)
+        {
+            return vehicles.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            throw new NotImplementedException();
+        }
+
+        private Vehicle[] GetVehiclesByType(string value)
+        {
+            return vehicles.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
         }
     }
 }
