@@ -17,9 +17,8 @@ namespace The_Garage_Exercise
             "\n" +
             "\n(P)ark vehicle (in available spot)" +
             "\n(R)etrieve vehicle" +
-            "\n(L)ist all vehicles" +
-            "\n(T)ypes of vehicles and numbers of each parked in the garage" +
-            "\n(S)earch for vehicle" +
+            "\n(L)ist vehicles" +
+            "\n(F)ilter vehicles" +
             "\n(Q)uit and leave the garage" +
             "\n";
         public static void DisplayMenu()
@@ -60,24 +59,17 @@ namespace The_Garage_Exercise
                             break;
                         }
 
-                    case "T":
-                    case "Types":
+                    case "F":
+                    case "Filter":
                         {
-                            Console.WriteLine("t");
-                            break;
-                        }
-
-                    case "S":
-                    case "Search":
-                        {
-                            Console.WriteLine("s");
+                            garage.FilterVehicle();
                             break;
                         }
 
                     case "Q":
                     case "Quit":
                         {
-                            Console.WriteLine("q");
+                            Console.WriteLine("Okay, bye!");
                             return;
                         }
 
