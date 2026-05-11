@@ -73,16 +73,11 @@ namespace The_Garage_Exercise.Vehicles
                 Console.WriteLine("Thank you. Generating registry information...");
 
 
-                Car car = new Car(ownership[1], ownership[0],
+                return new Car(ownership[1], ownership[0],
                 generalInfo[0], numWheels, mobility,
                 cylVolume, fuelType, numSeats
                 );
 
-                Console.WriteLine($"Owner: {car.Owner}, License: {car.License}, Color: {car.Color}," +
-                    $"\nNumber of wheels: {car.Wheels}, Number of seats: {car.NumberOfSeats}, Cylinder volume: {car.CylinderVolume}," +
-                    $"\nMobility: {car.Mobility}, Fuel type: {car.FuelType}");
-
-                return car;
             }
 
             else

@@ -64,15 +64,12 @@ namespace The_Garage_Exercise.Vehicles
             {
                 Console.WriteLine("Thank you. Generating registry information...");
 
-                Motorcycle cycle = new Motorcycle(ownership[1], ownership[0],
+                return new Motorcycle(ownership[1], ownership[0],
                 generalInfo[0], numWheels, mobility,
                 cylVolume, fuelType
                 );
 
-                Console.WriteLine($"Owner: {cycle.Owner}, License: {cycle.License}, Color: {cycle.Color}," +
-    $"\nNumber of wheels: {cycle.Wheels}, Cylinder volume: {cycle.CylinderVolume}," +
-    $"\nMobility: {cycle.Mobility}, Fuel type: {cycle.FuelType}");
-                return cycle;
+                
             }
 
             else
