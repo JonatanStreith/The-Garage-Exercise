@@ -30,7 +30,6 @@ namespace The_Garage_Exercise
                 }
             }
             return -1;
-            //Vehicle spot = System.Array.Find(vehicles, p => p is null);
         }
 
         public void ParkVehicle()
@@ -66,7 +65,7 @@ namespace The_Garage_Exercise
                 else
                 {
                     vehicles[parkingSpot] = vehicle;
-                    Console.WriteLine($"Your {vehicle.GetType}, license number {vehicle.License}, " +
+                    Console.WriteLine($"Your {vehicle.GetType().Name}, license number {vehicle.License}, " +
                         $"has been parked in spot {parkingSpot}. Enjoy your stay.");
                 }
 
