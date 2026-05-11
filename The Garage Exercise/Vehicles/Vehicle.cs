@@ -13,7 +13,7 @@ namespace The_Garage_Exercise.Vehicles
         private Mobility _mobility;
 
         public string License { get { return _license; } set { _license = value; } }
-        public string Owner { get { return _owner; } set { _license = value; } }
+        public string Owner { get { return _owner; } set { _owner = value; } }
         public string Color { get { return _color; } set { _color = value; } }
         public int Wheels { get { return _wheels; } set { _wheels = value; } }
         public Mobility Mobility { get { return _mobility; } set { _mobility = value; } }
@@ -99,7 +99,7 @@ namespace The_Garage_Exercise.Vehicles
                     }
             }
 
-            return null;
+            return vehicle;
 
         }
     }
