@@ -26,7 +26,7 @@ namespace The_Garage_Exercise.Vehicles
         public static Car RegisterVehicle()
         {
 
-            Console.Write("Please provide the name of the owner and the license number: ");
+            Console.WriteLine("Please provide the name of the owner and the license number.");
             string[] ownership = Console.ReadLine().Split(",");
 
             Console.WriteLine("Please specify the color, number of wheels (number), " +
@@ -38,22 +38,51 @@ namespace The_Garage_Exercise.Vehicles
                 "\nfuel type (gasoline or dieslel) and number of seats (number).");
             string[] typeInfo = Console.ReadLine().Split(",");
 
-            bool validInputs = (    //Assessing if all these inputs are valid
+            //Check so the arrays are properly filled out
+
+            bool completeInputs = (
+                ownership.Length == 2 ||
+                generalInfo.Length == 3 ||
+                typeInfo.Length == 3
+                );
+
+
+            if (completeInputs)
+            {
+                Car car = CreateCarFromInputs(ownership, generalInfo, typeInfo);
+                Console.WriteLine("The car has been registered.");
+                return car;
+            }
+            else
+                return null;
+
+        }
+
+        public static Car CreateCarFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        {
+            bool validInputs = (
                 int.TryParse(generalInfo[1], out int numWheels) &
                 Mobility.TryParse(generalInfo[2].ToLower(), out Mobility mobility) &
                 int.TryParse(typeInfo[0], out int cylVolume) &
                 FuelType.TryParse(typeInfo[1].ToLower(), out FuelType fuelType) &
                 int.TryParse(typeInfo[2], out int numSeats)
-                );
+            );
 
             if (validInputs)
             {
                 Console.WriteLine("Thank you. Generating registry information...");
 
-                return new Car(ownership[1], ownership[0],
+
+                Car car = new Car(ownership[1], ownership[0],
                 generalInfo[0], numWheels, mobility,
                 cylVolume, fuelType, numSeats
                 );
+
+                Console.WriteLine($"Owner: {car.Owner}, License: {car.License}, Color: {car.Color}," +
+                    $"\nNumber of wheels: {car.Wheels}, Number of seats: {car.NumberOfSeats}, Cylinder volume: {car.CylinderVolume}," +
+                    $"\nMobility: {car.Mobility}, Fuel type: {car.FuelType}");
+
+                return car;
             }
 
             else
