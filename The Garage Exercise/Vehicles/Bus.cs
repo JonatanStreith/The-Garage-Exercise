@@ -40,6 +40,29 @@ namespace The_Garage_Exercise.Vehicles
                 "\nand length (number in centimeters).");
             string[] typeInfo = Console.ReadLine().Split(",");
 
+
+            bool completeInputs = (
+ownership.Length == 2 ||
+generalInfo.Length == 3 ||
+typeInfo.Length == 4
+);
+
+
+            if (completeInputs)
+            {
+                Bus bus = CreateBusFromInputs(ownership, generalInfo, typeInfo);
+                Console.WriteLine("The bus has been registered.");
+                return bus;
+            }
+            else
+                return null;
+
+
+        }
+
+        public static Bus CreateBusFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        {
+
             bool validInputs = (    //Assessing if all these inputs are valid
                 int.TryParse(generalInfo[1], out int numWheels) &
                 Mobility.TryParse(generalInfo[2].ToLower(), out Mobility mobility) &

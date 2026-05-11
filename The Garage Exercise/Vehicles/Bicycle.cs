@@ -29,6 +29,27 @@ namespace The_Garage_Exercise.Vehicles
                 "\nNumber of  seats (number).");
             string typeInfo = Console.ReadLine();
 
+            bool completeInputs = (
+ownership.Length == 2 ||
+generalInfo.Length == 3
+);
+
+
+            if (completeInputs)
+            {
+                Bicycle bike = CreateBicycleFromInputs(ownership, generalInfo, typeInfo);
+                Console.WriteLine("The bicycle has been registered.");
+                return bike;
+            }
+            else
+                return null;
+
+
+        }
+
+        public static Bicycle CreateBicycleFromInputs(string[] ownership, string[] generalInfo, string typeInfo)
+        {
+
             bool validInputs = (    //Assessing if all these inputs are valid
                 int.TryParse(generalInfo[1], out int numWheels) &
                 Mobility.TryParse(generalInfo[2].ToLower(), out Mobility mobility) &

@@ -34,7 +34,7 @@ namespace The_Garage_Exercise.Vehicles
         public static Airplane RegisterVehicle()
         {
 
-            Console.Write("Please provide the name of the owner and the license number: ");
+            Console.WriteLine("Please provide the name of the owner and the license number.");
             string[] ownership = Console.ReadLine().Split(",");
 
             Console.WriteLine("Please specify the color, number of wheels (number), " +
@@ -46,6 +46,30 @@ namespace The_Garage_Exercise.Vehicles
                 "\nfuel type (gasoline or dieslel), number of seats (number)" +
                 "\nand length (number in centimeters).");
             string[] typeInfo = Console.ReadLine().Split(",");
+
+            bool completeInputs = (
+    ownership.Length == 2 ||
+    generalInfo.Length == 3 ||
+    typeInfo.Length == 5
+    );
+
+
+            if (completeInputs)
+            {
+                Airplane plane = CreateAirplaneFromInputs(ownership, generalInfo, typeInfo);
+                Console.WriteLine("The airplane has been registered.");
+                return plane;
+            }
+            else
+                return null;
+
+
+        }
+
+        public static Airplane CreateAirplaneFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        {
+
+
 
             bool validInputs = (    //Assessing if all these inputs are valid
                 int.TryParse(generalInfo[1], out int numWheels) &

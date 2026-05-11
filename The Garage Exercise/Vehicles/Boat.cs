@@ -36,6 +36,29 @@ namespace The_Garage_Exercise.Vehicles
                 "\nand length (number in centimeters).");
             string[] typeInfo = Console.ReadLine().Split(",");
 
+            bool completeInputs = (
+ownership.Length == 2 ||
+generalInfo.Length == 3 ||
+typeInfo.Length == 3
+);
+
+
+            if (completeInputs)
+            {
+                Boat boat = CreateBoatFromInputs(ownership, generalInfo, typeInfo);
+                Console.WriteLine("The boat has been registered.");
+                return boat;
+            }
+            else
+                return null;
+
+
+        }
+
+        public static Boat CreateBoatFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        {
+
+
             bool validInputs = (    //Assessing if all these inputs are valid
                 int.TryParse(generalInfo[1], out int numWheels) &
                 Mobility.TryParse(generalInfo[2].ToLower(), out Mobility mobility) &

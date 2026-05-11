@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 
 namespace The_Garage_Exercise.Vehicles
@@ -21,7 +22,7 @@ namespace The_Garage_Exercise.Vehicles
         public static Motorcycle RegisterVehicle()
         {
 
-            Console.Write("Please provide the name of the owner and the license number: ");
+            Console.WriteLine("Please provide the name of the owner and the license number.");
             string[] ownership = Console.ReadLine().Split(",");
 
             Console.WriteLine("Please specify the color, number of wheels (number), " +
@@ -31,6 +32,26 @@ namespace The_Garage_Exercise.Vehicles
             Console.WriteLine("Please specify technical details: " +
                 "\nCylinder volume (number) and fuel type (gasoline or dieslel).");
             string[] typeInfo = Console.ReadLine().Split(",");
+
+            bool completeInputs = (
+    ownership.Length == 2 ||
+    generalInfo.Length == 3 ||
+    typeInfo.Length == 2
+    );
+
+            if (completeInputs)
+            {
+                Motorcycle cycle = CreateMotorcycleFromInputs(ownership, generalInfo, typeInfo);
+                Console.WriteLine("The motorcycle has been registered.");
+                return cycle;
+            }
+            else
+                return null;
+
+        }
+
+        public static Motorcycle CreateMotorcycleFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        {
 
             bool validInputs = (    //Assessing if all these inputs are valid
                 int.TryParse(generalInfo[1], out int numWheels) &
@@ -43,10 +64,15 @@ namespace The_Garage_Exercise.Vehicles
             {
                 Console.WriteLine("Thank you. Generating registry information...");
 
-                return new Motorcycle(ownership[1], ownership[0],
+                Motorcycle cycle = new Motorcycle(ownership[1], ownership[0],
                 generalInfo[0], numWheels, mobility,
                 cylVolume, fuelType
                 );
+
+                Console.WriteLine($"Owner: {cycle.Owner}, License: {cycle.License}, Color: {cycle.Color}," +
+    $"\nNumber of wheels: {cycle.Wheels}, Cylinder volume: {cycle.CylinderVolume}," +
+    $"\nMobility: {cycle.Mobility}, Fuel type: {cycle.FuelType}");
+                return cycle;
             }
 
             else
