@@ -56,7 +56,7 @@ namespace The_Garage_Exercise
                     case "L":
                     case "List":
                         {
-                            Console.WriteLine("l");
+                            garage.ListParkedVehicles();
                             break;
                         }
 

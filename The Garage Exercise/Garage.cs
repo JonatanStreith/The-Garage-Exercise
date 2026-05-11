@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using The_Garage_Exercise.Vehicles;
@@ -87,19 +88,22 @@ namespace The_Garage_Exercise
 
             for (int i = 0; i < vehicles.Length; i++)
             {
-                if (vehicles[i].License == license)
+                if (vehicles[i].License.Equals(license, StringComparison.OrdinalIgnoreCase))
                 {
+                    Console.WriteLine($"A vehicle by that license number is parked in spot {i}." +
+                        $"\nYou may now leave the garage.");
                     vehicles[i] = null;
                     vehicleFound = true;
                     break;
                 }
             }
 
-            if (vehicleFound == false) {
+            if (vehicleFound == false)
+            {
                 Console.WriteLine("No vehicle with that number exists in the garage." +
     "\nDid you input the license number correctly?");
-
             }
+
         }
 
 
@@ -122,12 +126,98 @@ namespace The_Garage_Exercise
 
         public void ListParkedVehicles()
         {
-            Console.WriteLine("Listing vehicles.");
+            Console.Write("Please specify category of vehicle (or all): ");
+
+            string input = Console.ReadLine().ToLower();
+
+            int counter = 0;
+
+
+            Console.WriteLine($"Listing vehicles of category '{input}'.");
+
+            foreach (Vehicle vehicle in vehicles)
+            {
+                if (vehicle != null)
+                    if ((input == "all") || (input == vehicle.GetType().Name.ToLower()))
+                    {
+                        counter++;
+                        ListSingleVehicle(vehicle);
+                    }
+            }
+
+            Console.WriteLine($"Total  {counter} {input}s.");
+        }
+
+        public void ListSingleVehicle(Vehicle vehicle)
+        {
+            Console.WriteLine($"License number: {vehicle.License}, Owner: {vehicle.Owner}, Type: {vehicle.GetType().Name}." +
+                $"\nColor: {vehicle.Color}, Number of wheels: {vehicle.Wheels}, Mobility type: {vehicle.Mobility}.");
+            switch (vehicle.GetType().Name)
+            {
+                case "Car":
+                    {
+                        Console.WriteLine($"Cylinder volume: {(vehicle as Car).CylinderVolume}, Fuel type: {(vehicle as Car).FuelType}. " +
+$"Number of seats: {(vehicle as Car).NumberOfSeats}.\n");
+
+                        break;
+                    }
+                case "Boat":
+                    {
+                        Console.WriteLine($"Cylinder volume: {(vehicle as Boat).CylinderVolume}, Fuel type: {(vehicle as Boat).FuelType}. " +
+$"Length: {(vehicle as Boat).Length}.\n");
+
+                        break;
+                    }
+                case "Motorcycle":
+                    {
+                        Console.WriteLine($"Cylinder volume: {(vehicle as Motorcycle).CylinderVolume}, Fuel type: {(vehicle as Motorcycle).FuelType}. \n");
+                        break;
+                    }
+                case "Bicycle":
+                    {
+                        Console.WriteLine($"Number of seats: {(vehicle as Bicycle).NumberOfSeats}.\n");
+                        break;
+                    }
+                case "Bus":
+                    {
+                        Console.WriteLine($"Cylinder volume: {(vehicle as Bus).CylinderVolume}, Fuel type: {(vehicle as Bus).FuelType}." +
+$"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).Length}.\n");
+
+                        break;
+                    }
+                case "Airplane":
+                    {
+                        Console.WriteLine($"Number of engines: {(vehicle as Airplane).NumberOfEngines}, Cylinder volume: {(vehicle as Airplane).CylinderVolume}, Fuel type: {(vehicle as Airplane).FuelType}. " +
+                            $"Number of seats: {(vehicle as Airplane).NumberOfSeats}, Length: {(vehicle as Airplane).Length}.\n");
+                        break;
+                    }
+
+                default:
+                    {
+                        Console.WriteLine("If you can read this, something has gone wrong.\n");
+                        break;
+                    }
+            }
+
         }
 
         public void PopulateGarage(int number)
         {
             Console.WriteLine("Garage is being populated, probably.");
+
+
+            Vehicle v1 = new Car("123ABC", "Stefan Sjögall", "black", 4, Mobility.land, 45, FuelType.gasoline, 4);
+            Vehicle v2 = new Boat("448JXR", "Captain Crunch", "brown", 0, Mobility.water, 45, FuelType.gasoline, 1200);
+            Vehicle v3 = new Airplane("WSB-8840", "Baloo", "red", 0, Mobility.air, 30, 4, FuelType.gasoline, 12, 1800);
+            Vehicle v4 = new Motorcycle("FRIENDSHIP", "Kamen Rider Fourze", "white", 2, Mobility.land, 45, FuelType.gasoline);
+            Vehicle v5 = new Bus("MAGIC", "Mrs Frizzle", "yellow", 8, Mobility.land, 45, FuelType.gasoline, 28, 1800);
+
+            Vehicle[] populate = { v1, v2, v3, v4, v5 };
+
+            for (int i = 0; i < number; i++)
+            {
+                vehicles[i] = populate[i];
+            }
         }
 
 
@@ -137,7 +227,7 @@ namespace The_Garage_Exercise
             {
                 if (
                     (vehicle != null) &&
-                    (vehicle.License.Equals(license))
+                    vehicle.License.Equals(license, StringComparison.OrdinalIgnoreCase)
                     )
                 { return vehicle; }
             }
