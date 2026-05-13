@@ -4,7 +4,7 @@ using System.Text;
 
 namespace The_Garage_Exercise
 {
-    internal enum Mobility
+    public enum Mobility
     {
         land,
         water,
