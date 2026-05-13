@@ -4,7 +4,7 @@ using System.Text;
 
 namespace The_Garage_Exercise.Vehicles
 {
-    internal abstract class Vehicle
+    internal abstract class Vehicle : IVehicle
     {
         private string _license;
         private string _owner;
@@ -27,8 +27,9 @@ namespace The_Garage_Exercise.Vehicles
             Mobility = mobility;
         }
 
-
+        
         public static Vehicle RegisterVehicle()
+            //Move this to GarageHandler?
         {
             Console.WriteLine("You are required to provide the specifics of your vehicle for the registry." +
                             "\nMultiple inputs must be separated by a comma. Some inputs may be specific types." +
@@ -46,54 +47,64 @@ namespace The_Garage_Exercise.Vehicles
 
             string type = Console.ReadLine().ToLower();
 
+           if( !Enum.IsDefined(typeof(VehicleTypes), type)){
+                Console.WriteLine("That is not an applicable vehicle type.");
+                return null;
+            }
+
+
+            Console.Write("Please provide the name of the owner and the license number: ");
+            string[] ownership = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
+
+            Console.WriteLine("Please specify the color, number of wheels (number), " +
+                "\nand mobility type (land, air, or water).");
+            string[] generalInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
+
+
+
+
             switch (type)
             {
                 case "car":
                     {
-                        Console.WriteLine("Your vehicle is identified as a car.");
-                        vehicle = Car.RegisterVehicle();
+                        vehicle = Car.RegisterVehicle(ownership, generalInfo);
                         break;
                     }
 
                 case "bus":
                     {
-                        Console.WriteLine("Your vehicle is identified as a bus.");
-                        vehicle = Bus.RegisterVehicle();
+                        vehicle = Bus.RegisterVehicle(ownership, generalInfo);
                         break;
                     }
 
                 case "motorcycle":
                     {
-                        Console.WriteLine("Your vehicle is identified as a motorcycle.");
-                        vehicle = Motorcycle.RegisterVehicle();
+                        vehicle = Motorcycle.RegisterVehicle(ownership, generalInfo);
                         break;
                     }
 
                 case "bicycle":
                     {
-                        Console.WriteLine("Your vehicle is identified as a bicycle.");
-                        vehicle = Bicycle.RegisterVehicle();
+                        vehicle = Bicycle.RegisterVehicle(ownership, generalInfo);
                         break;
                     }
 
                 case "boat":
                     {
-                        Console.WriteLine("Your vehicle is identified as a boat.");
-                        vehicle = Boat.RegisterVehicle();
+                        vehicle = Boat.RegisterVehicle(ownership, generalInfo);
                         break;
                     }
 
                 case "airplane":
                     {
-                        Console.WriteLine("Your vehicle is identified as an airplane.");
-                        vehicle = Airplane.RegisterVehicle();
+                        vehicle = Airplane.RegisterVehicle(ownership, generalInfo);
                         break;
                     }
 
 
                 default:
                     {
-                        Console.WriteLine("That is not an applicable vehicle type.");
+                        Console.WriteLine("Something went wrong.");
                         vehicle = null;
                         break;
                     }
