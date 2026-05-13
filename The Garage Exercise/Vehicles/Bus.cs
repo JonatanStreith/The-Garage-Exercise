@@ -24,44 +24,29 @@ namespace The_Garage_Exercise.Vehicles
         public int NumberOfSeats { get { return _numberOfSeats; } set { _numberOfSeats = value; } }
         public int Length { get { return _length; } set { _length = value; } }
 
-        public static Bus RegisterVehicle()
+        public static Bus RegisterVehicle(string[] ownership, string[] generalInfo)
         {
-
-            Console.Write("Please provide the name of the owner and the license number: ");
-            string[] ownership = Console.ReadLine().Split(",");
-
-            Console.WriteLine("Please specify the color, number of wheels (number), " +
-                "\nand mobility type (land, air, or water).");
-            string[] generalInfo = Console.ReadLine().Split(",");
 
             Console.WriteLine("Please specify technical details: " +
                 "\nCylinder volume (number), " +
                 "\nfuel type (gasoline or dieslel), number of seats (number)" +
                 "\nand length (number in centimeters).");
-            string[] typeInfo = Console.ReadLine().Split(",");
+            string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
 
+                return CreateBusFromInputs(ownership, generalInfo, typeInfo);
 
-            bool completeInputs = (
-ownership.Length == 2 &&
-generalInfo.Length == 3 &&
-typeInfo.Length == 4
-);
-
-
-            if (completeInputs)
-            {
-                Bus bus = CreateBusFromInputs(ownership, generalInfo, typeInfo);
-                Console.WriteLine("The bus has been registered.");
-                return bus;
-            }
-            else
-                return null;
 
 
         }
 
         public static Bus CreateBusFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
+
+            if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 4)
+            {
+                Console.WriteLine("Sorry, incomplete registration.");
+                return null;
+            }
 
             bool validInputs = (    //Assessing if all these inputs are valid
                 int.TryParse(generalInfo[1], out int numWheels) &
@@ -76,19 +61,19 @@ typeInfo.Length == 4
 
             if (validInputs)
             {
+                Console.WriteLine("There were errors and the registration could not be completed." +
+                "\nPlease try again later.");
+                return null;
+            }
+
+            else
+            {
                 Console.WriteLine("Thank you. Generating registry information...");
 
                 return new Bus(ownership[1], ownership[0],
                 generalInfo[0], numWheels, mobility,
                 cylVolume, fuelType, numSeats, length
                 );
-            }
-
-            else
-            {
-                Console.WriteLine("There were errors and the registration could not be completed." +
-                "\nPlease try again later.");
-                return null;
             }
         }
 

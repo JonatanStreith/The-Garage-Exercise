@@ -21,42 +21,27 @@ namespace The_Garage_Exercise.Vehicles
         public FuelType FuelType { get { return _fuelType; } set { _fuelType = value; } }
         public int Length { get { return _length; } set { _length = value; } }
 
-        public static Boat RegisterVehicle()
+        public static Boat RegisterVehicle(string[] ownership, string[] generalInfo)
         {
-
-            Console.Write("Please provide the name of the owner and the license number: ");
-            string[] ownership = Console.ReadLine().Split(",");
-
-            Console.WriteLine("Please specify the color, number of wheels (number), " +
-                "\nand mobility type (land, air, or water).");
-            string[] generalInfo = Console.ReadLine().Split(",");
 
             Console.WriteLine("Please specify technical details: " +
                 "\nCylinder volume (number), fuel type (gasoline or diesel) " +
                 "\nand length (number in centimeters).");
-            string[] typeInfo = Console.ReadLine().Split(",");
-
-            bool completeInputs = (
-ownership.Length == 2 &&
-generalInfo.Length == 3 &&
-typeInfo.Length == 3
-);
+            string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
 
 
-            if (completeInputs)
-            {
-                Boat boat = CreateBoatFromInputs(ownership, generalInfo, typeInfo);
-                Console.WriteLine("The boat has been registered.");
-                return boat;
-            }
-            else
-                return null;
-
+                return CreateBoatFromInputs(ownership, generalInfo, typeInfo);
 
         }
 
         public static Boat CreateBoatFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
+
+            if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 3)
+            {
+                Console.WriteLine("Sorry, incomplete registration.");
+                return null;
+            }
 
 
             bool validInputs = (    //Assessing if all these inputs are valid
@@ -67,7 +52,14 @@ typeInfo.Length == 3
                 int.TryParse(typeInfo[2], out int length)
                 );
 
-            if (validInputs)
+            if (!validInputs)
+            {
+                Console.WriteLine("There were errors and the registration could not be completed." +
+                "\nPlease try again later.");
+                return null;
+            }
+
+            else
             {
                 Console.WriteLine("Thank you. Generating registry information...");
 
@@ -75,13 +67,6 @@ typeInfo.Length == 3
                 generalInfo[0], numWheels, mobility,
                 cylVolume, fuelType, length
                 );
-            }
-
-            else
-            {
-                Console.WriteLine("There were errors and the registration could not be completed." +
-                "\nPlease try again later.");
-                return null;
             }
         }
 

@@ -16,47 +16,43 @@ namespace The_Garage_Exercise.Vehicles
         public int NumberOfSeats { get { return _numberOfSeats; } set { _numberOfSeats = value; } }
 
 
-        public static Bicycle RegisterVehicle()
+        public static Bicycle RegisterVehicle(string[] ownership, string[] generalInfo)
         {
-            Console.Write("Please provide the name of the owner and the license number: ");
-            string[] ownership = Console.ReadLine().Split(",");
-
-            Console.WriteLine("Please specify the color, number of wheels (number), " +
-                "\nand mobility type (land, air, or water).");
-            string[] generalInfo = Console.ReadLine().Split(",");
-
             Console.WriteLine("Please specify technical details: " +
                 "\nNumber of  seats (number).");
-            string typeInfo = Console.ReadLine();
-
-            bool completeInputs = (
-ownership.Length == 2 &&
-generalInfo.Length == 3
-);
+            string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
 
 
-            if (completeInputs)
-            {
-                Bicycle bike = CreateBicycleFromInputs(ownership, generalInfo, typeInfo);
-                Console.WriteLine("The bicycle has been registered.");
-                return bike;
-            }
-            else
-                return null;
+
+            return CreateBicycleFromInputs(ownership, generalInfo, typeInfo);
 
 
         }
 
-        public static Bicycle CreateBicycleFromInputs(string[] ownership, string[] generalInfo, string typeInfo)
+        public static Bicycle CreateBicycleFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
+
+
+            if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 1)
+            {
+                Console.WriteLine("Sorry, incomplete registration.");
+                return null;
+            }
 
             bool validInputs = (    //Assessing if all these inputs are valid
                 int.TryParse(generalInfo[1], out int numWheels) &
                 Mobility.TryParse(generalInfo[2].ToLower(), out Mobility mobility) &
-                int.TryParse(typeInfo, out int numSeats)
+                int.TryParse(typeInfo[0], out int numSeats)
                 );
 
-            if (validInputs)
+            if (!validInputs)
+            {
+                Console.WriteLine("There were errors and the registration could not be completed." +
+                "\nPlease try again later.");
+                return null;
+            }
+
+            else
             {
                 Console.WriteLine("Thank you. Generating registry information...");
 
@@ -66,15 +62,9 @@ generalInfo.Length == 3
                 );
             }
 
-            else
-            {
-                Console.WriteLine("There were errors and the registration could not be completed." +
-                "\nPlease try again later.");
-                return null;
-            }
         }
 
-    
 
-}
+
+    }
 }
