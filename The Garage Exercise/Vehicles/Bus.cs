@@ -72,6 +72,8 @@ typeInfo.Length == 4
                 int.TryParse(typeInfo[3], out int length)
                 );
 
+
+
             if (validInputs)
             {
                 Console.WriteLine("Thank you. Generating registry information...");
