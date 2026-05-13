@@ -34,8 +34,8 @@ namespace The_Garage_Exercise.Vehicles
             string[] typeInfo = Console.ReadLine().Split(",");
 
             bool completeInputs = (
-    ownership.Length == 2 ||
-    generalInfo.Length == 3 ||
+    ownership.Length == 2 &&
+    generalInfo.Length == 3 &&
     typeInfo.Length == 2
     );
 

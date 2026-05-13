@@ -42,8 +42,8 @@ namespace The_Garage_Exercise.Vehicles
 
 
             bool completeInputs = (
-ownership.Length == 2 ||
-generalInfo.Length == 3 ||
+ownership.Length == 2 &&
+generalInfo.Length == 3 &&
 typeInfo.Length == 4
 );
 
