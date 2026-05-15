@@ -59,7 +59,7 @@ namespace The_Garage_Exercise.Vehicles
 
 
 
-            if (validInputs)
+            if (!validInputs)
             {
                 Console.WriteLine("There were errors and the registration could not be completed." +
                 "\nPlease try again later.");
