@@ -19,22 +19,6 @@ namespace The_Garage_Exercise
             currentOccupancy = 0;
         }
 
-        public int FindEmptySpot(out bool spotFound)        //Returns a spot number, and a bool confirming the find
-        {
-            spotFound = false;
-
-            for (int i = 0; i < vehicles.Count; i++)
-
-            {
-                if (vehicles[i] is null)
-                {
-                    spotFound = true;
-                    return i;
-                }
-            }
-            return -1;
-        }
-
         public void ParkVehicle()       //Return a resultcode?
         {
             Console.WriteLine("You have chosen to park your vehicle.");
