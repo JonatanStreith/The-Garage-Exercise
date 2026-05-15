@@ -15,7 +15,6 @@ namespace The_Garage_Exercise
 
             PopulateOrNot();
         }
-        public Garage Garage { get { return _garage; } }
 
         public static int SizeGarage()
         {
