@@ -248,7 +248,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             Console.WriteLine("And what are you looking for? (E.g. 'brown', 'car', 4, 'water')");
             string value = Console.ReadLine().ToLower();
 
-            Vehicle[] results = RetrieveVehiclesByAspect(aspect, value);
+            Vehicle[] results = FilterVehiclesByAspect(aspect, value);
 
 
             Console.WriteLine($"{results.Length} vehicles found.");
@@ -259,7 +259,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         }
 
-        public Vehicle[] RetrieveVehiclesByAspect(string aspect, string value)
+        public Vehicle[] FilterVehiclesByAspect(string aspect, string value)
         {
             Vehicle[] filteredVehicles = null;
 
