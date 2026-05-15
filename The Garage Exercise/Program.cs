@@ -10,7 +10,6 @@ namespace The_Garage_Exercise
 
             GarageHandler garageHandler = new GarageHandler();
 
-
             Menu.DisplayMenu();
 
             Menu.MakeChoice(garageHandler);
