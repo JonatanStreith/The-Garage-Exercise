@@ -9,12 +9,6 @@ namespace The_Garage_Exercise
     {
 
 
-        public string License { get; set; }
-        public string Owner { get; set; }
-        public string Color { get; set; }
-        public int Wheels { get; set; }
-        public Mobility Mobility { get; set; }
-
         internal static abstract Vehicle RegisterVehicle();
 
     }

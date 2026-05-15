@@ -4,7 +4,7 @@ using System.Text;
 
 namespace The_Garage_Exercise.Vehicles
 {
-    internal class Bus : Vehicle
+    internal class Bus : Vehicle, IVehicle
     {
         private int _cylinderVolume;
         private FuelType _fuelType;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace The_Garage_Exercise.Vehicles
 {
-    internal class Bicycle : Vehicle
+    internal class Bicycle : Vehicle, IVehicle
     {
         private int _numberOfSeats;
 
