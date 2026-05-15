@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using The_Garage_Exercise.Enums;
 
 namespace The_Garage_Exercise.Vehicles
 {

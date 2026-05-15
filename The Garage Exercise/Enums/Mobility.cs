@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace The_Garage_Exercise
+namespace The_Garage_Exercise.Enums
 {
     public enum Mobility
     {
