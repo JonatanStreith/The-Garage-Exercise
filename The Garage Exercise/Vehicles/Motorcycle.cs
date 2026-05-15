@@ -23,7 +23,7 @@ namespace The_Garage_Exercise.Vehicles
         {
 
             Console.WriteLine("Please specify technical details: " +
-                "\nCylinder volume (number) and fuel type (gasoline or dieslel).");
+                "\nCylinder volume (number) and fuel type (gasoline or diesel).");
             string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
 
 
