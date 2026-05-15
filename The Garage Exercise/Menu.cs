@@ -26,7 +26,7 @@ namespace The_Garage_Exercise
             Console.WriteLine(openingText);
         }
 
-        public static void MakeChoice(Garage garage)
+        public static void MakeChoice(GarageHandler garageHandler)
         {
 
             while (true)
@@ -41,28 +41,28 @@ namespace The_Garage_Exercise
                     case "P":
                     case "Park":
                         {
-                            garage.ParkVehicle();
+                            garageHandler.ParkVehicle();
                             break;
                         }
 
                     case "R":
                     case "Retrieve":
                         {
-                            garage.RetrieveVehicle();
+                            garageHandler.RetrieveVehicle();
                             break;
                         }
 
                     case "L":
                     case "List":
                         {
-                            garage.ListParkedVehicles();
+                            garageHandler.ListParkedVehicles();
                             break;
                         }
 
                     case "F":
                     case "Filter":
                         {
-                            garage.FilterVehicle();
+                            garageHandler.FilterVehicle();
                             break;
                         }
 

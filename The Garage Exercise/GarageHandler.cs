@@ -1,31 +1,94 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using The_Garage_Exercise.Vehicles;
 
 namespace The_Garage_Exercise
 {
-    internal class Garage
+    internal class GarageHandler
     {
-        public readonly int numberOfParkingSpots;
-        public List<Vehicle> vehicles;
-        public int currentOccupancy;
-
-        public Garage(int numberOfParkingSpots)
+        private Garage _garage;
+        public GarageHandler()
         {
-            vehicles = new List<Vehicle>();
-            this.numberOfParkingSpots = numberOfParkingSpots;
-            currentOccupancy = 0;
+            _garage = new(SizeGarage());
+            Console.WriteLine("\nA new garage has been erected.");
+
+            PopulateOrNot();
+        }
+        public Garage Garage { get { return _garage; } }
+
+        public static int SizeGarage()
+        {
+            Console.Write("Please specify size of garage (at least 5 is recommended): ");
+
+            while (true)
+            {
+                bool success = int.TryParse(Console.ReadLine(), out int size);
+                if (success)
+                    return size;
+                else
+                    Console.Write("That is not a legitimate number." +
+                    "\nPlease specify size of garage: ");
+            }
+
         }
 
-        /*public void ParkVehicle()       //Return a resultcode?
+        public void PopulateOrNot()
+        {
+            Console.Write("Would you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
+
+            string populateOrNot = Console.ReadLine().ToLower();
+            
+            switch (populateOrNot)
+            {
+                case "y":
+                    {
+                        Console.WriteLine("Okay, the garage will be populated with five vehicles " +
+                            "\n(or fewer depending on size).");
+
+                        PopulateGarage((_garage.numberOfParkingSpots < 5) ? _garage.numberOfParkingSpots : 5);
+                        break;
+                    }
+
+                case "n":
+                default:
+                    {
+                        Console.WriteLine("This garage will be empty from the start.");
+                        break;
+                    }
+
+            }
+
+        }
+
+        public void PopulateGarage(int number)
+        {
+            Console.WriteLine("Garage is being populated, probably.");
+
+            Vehicle v1 = new Car("123ABC", "Stefan Sjögall", "black", 4, Mobility.land, 45, FuelType.gasoline, 4);
+            Vehicle v2 = new Boat("448JXR", "Captain Crunch", "brown", 0, Mobility.water, 45, FuelType.gasoline, 1200);
+            Vehicle v3 = new Airplane("WSB-8840", "Baloo", "red", 0, Mobility.air, 30, 4, FuelType.gasoline, 12, 1800);
+            Vehicle v4 = new Motorcycle("FRIENDSHIP", "Kamen Rider Fourze", "white", 2, Mobility.land, 45, FuelType.gasoline);
+            Vehicle v5 = new Bus("MAGIC", "Mrs Frizzle", "yellow", 8, Mobility.land, 45, FuelType.gasoline, 28, 1800);
+
+            Vehicle[] populate = { v1, v2, v3, v4, v5 };
+
+            for (int i = 0; i < number; i++)
+            {
+                _garage.vehicles.Add(populate[i]);
+                _garage.currentOccupancy++;
+            }
+        }
+
+
+
+        public void ParkVehicle()       //Return a resultcode?
         {
             Console.WriteLine("You have chosen to park your vehicle.");
 
 
 
-            if(numberOfParkingSpots <= currentOccupancy)    //Are there not more spots than are used?
+            if (_garage.numberOfParkingSpots <= _garage.currentOccupancy)    //Are there not more spots than are used?
             {
                 Console.WriteLine("Apologies, but there are no free parking spots avilable currently. " +
                                     "\nPlease try another garage.");
@@ -42,46 +105,45 @@ namespace The_Garage_Exercise
             }
 
 
-                Console.WriteLine($"A parking spot is available.");
+            Console.WriteLine($"A parking spot is available.");
 
-                bool duplicate = (FindVehicleByLicense(vehicle.License) != null);
-                //If we attempt to find a vehicle with the same license number and
-                //it doesn't return null, we have a duplicate.
+            bool duplicate = (FindVehicleByLicense(vehicle.License) != null);
+            //If we attempt to find a vehicle with the same license number and
+            //it doesn't return null, we have a duplicate.
 
-                if (duplicate)
-                {
-                    Console.WriteLine("Illegitimate license number. " +
-                        "\nA vehicle with the same number already exist in the garage. " +
-                        "\nPolice has been alerted.");
-                }
-                else
-                {
-                    vehicles.Add(vehicle);
-                    currentOccupancy++;
+            if (duplicate)
+            {
+                Console.WriteLine("Illegitimate license number. " +
+                    "\nA vehicle with the same number already exist in the garage. " +
+                    "\nPolice has been alerted.");
+            }
+            else
+            {
+                _garage.vehicles.Add(vehicle);
+                _garage.currentOccupancy++;
 
-                    Console.WriteLine($"Your {vehicle.GetType().Name}, license number {vehicle.License}, " +
-                        $"has been parked. Enjoy your stay.");
-                }
+                Console.WriteLine($"Your {vehicle.GetType().Name}, license number {vehicle.License}, " +
+                    $"has been parked. Enjoy your stay.");
+            }
 
         }
 
-        */
-        /*public void RetrieveVehicle()
+        public void RetrieveVehicle()
         {
             Console.Write("Please provide the license number of the vehicle you wish to retrieve: ");
             string license = Console.ReadLine();
 
             bool vehicleFound = false;
 
-            foreach (Vehicle vehicle in vehicles)
+            foreach (Vehicle vehicle in _garage.vehicles)
             {
                 if (vehicle.License.Equals(license, StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine($"Your vehicle, a {vehicle.GetType().Name} owned by {vehicle.Owner}, has been located." +
                         $"\nYou may now leave the garage.");
-                    vehicles.Remove(vehicle);
+                    _garage.vehicles.Remove(vehicle);
                     vehicleFound = true;
-                    currentOccupancy--;
+                    _garage.currentOccupancy--;
                     break;
                 }
             }
@@ -93,43 +155,8 @@ namespace The_Garage_Exercise
             }
 
         }
-        */
-        /*public void PopulateGarage(int number)
-        {
-            Console.WriteLine("Garage is being populated, probably.");
 
-
-            Vehicle v1 = new Car("123ABC", "Stefan Sjögall", "black", 4, Mobility.land, 45, FuelType.gasoline, 4);
-            Vehicle v2 = new Boat("448JXR", "Captain Crunch", "brown", 0, Mobility.water, 45, FuelType.gasoline, 1200);
-            Vehicle v3 = new Airplane("WSB-8840", "Baloo", "red", 0, Mobility.air, 30, 4, FuelType.gasoline, 12, 1800);
-            Vehicle v4 = new Motorcycle("FRIENDSHIP", "Kamen Rider Fourze", "white", 2, Mobility.land, 45, FuelType.gasoline);
-            Vehicle v5 = new Bus("MAGIC", "Mrs Frizzle", "yellow", 8, Mobility.land, 45, FuelType.gasoline, 28, 1800);
-
-            Vehicle[] populate = { v1, v2, v3, v4, v5 };
-
-            for (int i = 0; i < number; i++)
-            {
-                vehicles.Add(populate[i]);
-                currentOccupancy++;
-            }
-        }
-        */
-        /*public Vehicle FindVehicleByLicense(string license)
-        {
-            foreach (Vehicle vehicle in vehicles)
-            {
-                if (
-                    (vehicle != null) &&
-                    vehicle.License.Equals(license, StringComparison.OrdinalIgnoreCase)
-                    )
-                { return vehicle; }
-            }
-
-            return null;
-        }
-*/
-
-        /*public void ListParkedVehicles()
+        public void ListParkedVehicles()
         {
             Console.Write("Please specify category of vehicle (or all): ");
 
@@ -140,7 +167,7 @@ namespace The_Garage_Exercise
 
             Console.WriteLine($"Listing vehicles of category '{input}'.");
 
-            foreach (Vehicle vehicle in vehicles)
+            foreach (Vehicle vehicle in _garage.vehicles)
             {
                 if (vehicle != null)
                     if ((input == "all") || (input == vehicle.GetType().Name.ToLower()))
@@ -152,8 +179,8 @@ namespace The_Garage_Exercise
 
             Console.WriteLine($"Total  {counter} {input}s.");
         }
-        */
-        /*public void ListSingleVehicle(Vehicle vehicle)
+
+        public void ListSingleVehicle(Vehicle vehicle)
         {
             Console.WriteLine($"License number: {vehicle.License}, Owner: {vehicle.Owner}, Type: {vehicle.GetType().Name}." +
                 $"\nColor: {vehicle.Color}, Number of wheels: {vehicle.Wheels}, Mobility type: {vehicle.Mobility}.");
@@ -205,9 +232,24 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
 
         }
-        */
 
-        /*public void FilterVehicle()
+
+
+        public Vehicle FindVehicleByLicense(string license)
+        {
+            foreach (Vehicle vehicle in _garage.vehicles)
+            {
+                if (
+                    (vehicle != null) &&
+                    vehicle.License.Equals(license, StringComparison.OrdinalIgnoreCase)
+                    )
+                { return vehicle; }
+            }
+
+            return null;
+        }
+
+        public void FilterVehicle()
         {
             Console.WriteLine("You may search for vehicles by certain aspects.");
             Console.WriteLine("\nWhich aspect would you like to search on? " +
@@ -268,24 +310,49 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         private Vehicle[] GetVehiclesByMobility(string value)
         {
-            return vehicles.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return _garage.vehicles.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
         }
 
         private Vehicle[] GetVehiclesByWheels(string value)
         {
-            return vehicles.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return _garage.vehicles.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
         }
 
         private Vehicle[] GetVehiclesByColor(string value)
         {
-            return vehicles.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return _garage.vehicles.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
             throw new NotImplementedException();
         }
 
         private Vehicle[] GetVehiclesByType(string value)
         {
-            return vehicles.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return _garage.vehicles.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
         }
-        */
+
+
+
+
+
+
+
+
+        public void RemoveVehicle(Vehicle vehicle)
+        {
+            Console.WriteLine("Vehicle will be removed.");
+
+        }
+
+        public void DestroyVehicle(Vehicle vehicle)
+        {
+            Console.WriteLine("Preparing wrecking crew...");
+
+        }
+
+        public void DestroyGarage()
+        {
+            Console.WriteLine("Garage is slated for destruction.");
+        }
+
+
     }
 }

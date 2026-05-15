@@ -6,19 +6,15 @@
         {
             Console.WriteLine("Welcome!");
 
+            GarageHandler garageHandler = new GarageHandler();
 
-            Garage garage = new(SizeGarage());
-
-            Console.WriteLine("\nA new garage has been erected.");
-
-            PopulateOrNot(garage);
 
             Menu.DisplayMenu();
 
-            Menu.MakeChoice(garage);
+            Menu.MakeChoice(garageHandler);
         }
 
-        public static int SizeGarage()
+        /*public static int SizeGarage()
         {
             Console.Write("Please specify size of garage (at least 5 is recommended): ");
 
@@ -34,7 +30,8 @@
 
         }
 
-        public static void PopulateOrNot(Garage garage)
+        */
+        /*public static void PopulateOrNot(Garage garage)
         {
             Console.Write("Would you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
 
@@ -60,5 +57,7 @@
             }
 
         }
+
+        */
     }
 }
