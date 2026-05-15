@@ -176,7 +176,10 @@ namespace The_Garage_Exercise.Garage
                     }
             }
 
-            Console.WriteLine($"Total  {counter} {input}s.");
+            if(input== "all") 
+                Console.WriteLine($"Total {counter} vehicles.");
+            else 
+            Console.WriteLine($"Total {counter} {input}s.");
         }
 
         public void ListSingleVehicle(Vehicle vehicle)
@@ -271,7 +274,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         public Vehicle[] FilterVehiclesByAspect(string aspect, string value)
         {
-            Vehicle[] filteredVehicles = null;
+            
 
             switch (aspect)
             {

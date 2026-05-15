@@ -31,11 +31,7 @@ namespace The_Garage_Exercise.Vehicles
                 "\nfuel type (gasoline or diesel) and number of seats (number).");
             string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
 
-            //Check so the arrays are properly filled out
-
-
                 return CreateCarFromInputs(ownership, generalInfo, typeInfo);
-
         }
 
         public static Car CreateCarFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
