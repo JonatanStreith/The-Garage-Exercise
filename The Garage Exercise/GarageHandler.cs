@@ -261,10 +261,10 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             Console.WriteLine("And what are you looking for? (E.g. 'brown', 'car', 4, 'water')");
             string value = Console.ReadLine().ToLower();
 
-            Vehicle[] results = FilterVehiclesByAspect(aspect, value);
+            List<Vehicle> results = FilterVehiclesByAspect(aspect, value);
 
 
-            Console.WriteLine($"{results.Length} vehicles found.");
+            Console.WriteLine($"{results.Count} vehicles found.");
             foreach (Vehicle vehicle in results)
             {
                 ListSingleVehicle(vehicle);
@@ -272,7 +272,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         }
 
-        public Vehicle[] FilterVehiclesByAspect(string aspect, string value)
+        public List<Vehicle> FilterVehiclesByAspect(string aspect, string value)
         {
             
 
@@ -305,25 +305,25 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
         }
 
-        private Vehicle[] GetVehiclesByMobility(string value)
+        private List<Vehicle> GetVehiclesByMobility(string value)
         {
-            return _garage.vehicles.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return _garage.vehicles.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
         }
 
-        private Vehicle[] GetVehiclesByWheels(string value)
+        private List<Vehicle> GetVehiclesByWheels(string value)
         {
-            return _garage.vehicles.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return _garage.vehicles.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
         }
 
-        private Vehicle[] GetVehiclesByColor(string value)
+        private List<Vehicle> GetVehiclesByColor(string value)
         {
-            return _garage.vehicles.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return _garage.vehicles.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
             throw new NotImplementedException();
         }
 
-        private Vehicle[] GetVehiclesByType(string value)
+        private List<Vehicle> GetVehiclesByType(string value)
         {
-            return _garage.vehicles.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return _garage.vehicles.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
         }
 
 
