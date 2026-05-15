@@ -9,8 +9,8 @@ namespace The_Garage_Exercise
     internal class Garage
     {
         public readonly int numberOfParkingSpots;
-        private List<Vehicle> vehicles;
-        private int currentOccupancy;
+        public List<Vehicle> vehicles;
+        public int currentOccupancy;
 
         public Garage(int numberOfParkingSpots)
         {
