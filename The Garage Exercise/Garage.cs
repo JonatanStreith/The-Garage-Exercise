@@ -9,19 +9,21 @@ namespace The_Garage_Exercise
     internal class Garage
     {
         public readonly int numberOfParkingSpots;
-        private Vehicle[] vehicles;
+        private List<Vehicle> vehicles;
+        private int currentOccupancy;
 
         public Garage(int numberOfParkingSpots)
         {
-            vehicles = new Vehicle[numberOfParkingSpots];
+            vehicles = new List<Vehicle>();
             this.numberOfParkingSpots = numberOfParkingSpots;
+            currentOccupancy = 0;
         }
 
         public int FindEmptySpot(out bool spotFound)        //Returns a spot number, and a bool confirming the find
         {
             spotFound = false;
 
-            for (int i = 0; i < vehicles.Length; i++)
+            for (int i = 0; i < vehicles.Count; i++)
 
             {
                 if (vehicles[i] is null)
@@ -33,25 +35,30 @@ namespace The_Garage_Exercise
             return -1;
         }
 
-        public void ParkVehicle()
+        public void ParkVehicle()       //Return a resultcode?
         {
             Console.WriteLine("You have chosen to park your vehicle.");
+
+
+
+            if(numberOfParkingSpots <= currentOccupancy)    //Are there not more spots than are used?
+            {
+                Console.WriteLine("Apologies, but there are no free parking spots avilable currently. " +
+                                    "\nPlease try another garage.");
+                return;
+            }
+
+
             Vehicle vehicle = Vehicle.RegisterVehicle();
 
-            if (vehicle != null)
+            if (vehicle == null)
             {
-                ParkVehicle(vehicle);
+                Console.WriteLine("Vehicle cannot be parked due to non-existence.");
+                return;
             }
-            else
-                Console.WriteLine("Parking aborted.");
-        }
-        public void ParkVehicle(Vehicle vehicle)
-        {
-            int parkingSpot = FindEmptySpot(out bool success);
 
-            if (success)
-            {
-                Console.WriteLine($"Parking spot {parkingSpot} is available.");
+
+                Console.WriteLine($"A parking spot is available.");
 
                 bool duplicate = (FindVehicleByLicense(vehicle.License) != null);
                 //If we attempt to find a vehicle with the same license number and
@@ -65,18 +72,13 @@ namespace The_Garage_Exercise
                 }
                 else
                 {
-                    vehicles[parkingSpot] = vehicle;
+                    vehicles.Add(vehicle);
+                    currentOccupancy++;
+
                     Console.WriteLine($"Your {vehicle.GetType().Name}, license number {vehicle.License}, " +
-                        $"has been parked in spot {parkingSpot}. Enjoy your stay.");
+                        $"has been parked. Enjoy your stay.");
                 }
 
-            }
-            else
-            {
-                Console.WriteLine("Apologies, but there are no free parking spots avilable currently. " +
-                    "\nPlease try another garage.");
-            }
-            //Possibly return the message as a string?
         }
 
         public void RetrieveVehicle()
@@ -86,14 +88,15 @@ namespace The_Garage_Exercise
 
             bool vehicleFound = false;
 
-            for (int i = 0; i < vehicles.Length; i++)
+            foreach (Vehicle vehicle in vehicles)
             {
-                if (vehicles[i].License.Equals(license, StringComparison.OrdinalIgnoreCase))
+                if (vehicle.License.Equals(license, StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine($"A vehicle by that license number is parked in spot {i}." +
+                    Console.WriteLine($"Your vehicle, a {vehicle.GetType().Name} owned by {vehicle.Owner}, has been located." +
                         $"\nYou may now leave the garage.");
-                    vehicles[i] = null;
+                    vehicles.Remove(vehicle);
                     vehicleFound = true;
+                    currentOccupancy--;
                     break;
                 }
             }
@@ -215,7 +218,8 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             for (int i = 0; i < number; i++)
             {
-                vehicles[i] = populate[i];
+                vehicles.Add(populate[i]);
+                currentOccupancy++;
             }
         }
 
