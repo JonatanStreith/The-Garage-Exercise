@@ -281,22 +281,18 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                 case "type":
                     {
                         return GetVehiclesByType(value);
-                        break;
                     }
                 case "color":
                     {
                         return GetVehiclesByColor(value);
-                        break;
                     }
                 case "number":
                     {
                         return GetVehiclesByWheels(value);
-                        break;
                     }
                 case "mobility":
                     {
                         return GetVehiclesByMobility(value);
-                        break;
                     }
 
 
@@ -305,7 +301,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                     {
                         Console.WriteLine("This is not a known aspect.");
                         return null;
-                        break;
                     }
             }
         }
