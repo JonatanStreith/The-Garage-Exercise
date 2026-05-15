@@ -1,4 +1,6 @@
-﻿namespace The_Garage_Exercise
+﻿using The_Garage_Exercise.Garage;
+
+namespace The_Garage_Exercise
 {
     internal class Program
     {
