@@ -150,25 +150,23 @@ namespace The_Garage_Exercise.Garage
         {
             string input = GetInput("Please specify category of vehicle (or all): ");
 
-            int counter = 0;
-
-
             Console.WriteLine($"Listing vehicles of category '{input}'.");
 
-            foreach (Vehicle vehicle in _garage)
+            List<Vehicle> results = _garage.Where(vehicle =>
+            input == "all" ||
+            vehicle.GetType().Name.Equals(input, StringComparison.OrdinalIgnoreCase)
+            ).ToList();
+
+            foreach (Vehicle vehicle in results)
             {
-                if (vehicle != null)
-                    if ((input == "all") || (input == vehicle.GetType().Name.ToLower()))
-                    {
-                        counter++;
                         ListSingleVehicle(vehicle);
-                    }
             }
 
+
             if(input == "all") 
-                Console.WriteLine($"Total {counter} vehicles.");
+                Console.WriteLine($"Total {results.Count} vehicles.");
             else 
-            Console.WriteLine($"Total {counter} {input}s.");
+            Console.WriteLine($"Total {results.Count} {input}s.");
         }
 
         public void ListSingleVehicle(Vehicle vehicle)
