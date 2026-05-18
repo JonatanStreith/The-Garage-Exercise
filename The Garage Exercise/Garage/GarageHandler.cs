@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using The_Garage_Exercise.Enums;
@@ -8,10 +9,10 @@ namespace The_Garage_Exercise.Garage
 {
     internal class GarageHandler
     {
-        private Garage _garage;
+        private Garage<Vehicle> _garage;
         public GarageHandler()
         {
-            _garage = new(SizeGarage());
+            _garage = new Garage<Vehicle>(SizeGarage());
             Console.WriteLine("\nA new garage has been erected.");
 
             PopulateOrNot();
@@ -46,7 +47,7 @@ namespace The_Garage_Exercise.Garage
                         Console.WriteLine("Okay, the garage will be populated with five vehicles " +
                             "\n(or fewer depending on size).");
 
-                        PopulateGarage((_garage.numberOfParkingSpots < 5) ? _garage.numberOfParkingSpots : 5);
+                        PopulateGarage((_garage.NumberOfParkingSpots < 5) ? _garage.NumberOfParkingSpots : 5);
                         break;
                     }
 
@@ -75,8 +76,7 @@ namespace The_Garage_Exercise.Garage
 
             for (int i = 0; i < number; i++)
             {
-                _garage.vehicles.Add(populate[i]);
-                _garage.currentOccupancy++;
+                _garage.Add(populate[i]);
             }
         }
 
@@ -88,7 +88,7 @@ namespace The_Garage_Exercise.Garage
 
 
 
-            if (_garage.numberOfParkingSpots <= _garage.currentOccupancy)    //Are there not more spots than are used?
+            if (_garage.NumberOfParkingSpots <= _garage.CurrentOccupancy)    //Are there not more spots than are used?
             {
                 Console.WriteLine("Apologies, but there are no free parking spots avilable currently. " +
                                     "\nPlease try another garage.");
@@ -119,8 +119,7 @@ namespace The_Garage_Exercise.Garage
             }
             else
             {
-                _garage.vehicles.Add(vehicle);
-                _garage.currentOccupancy++;
+                _garage.Add(vehicle);
 
                 Console.WriteLine($"Your {vehicle.GetType().Name}, license number {vehicle.License}, " +
                     $"has been parked. Enjoy your stay.");
@@ -134,15 +133,14 @@ namespace The_Garage_Exercise.Garage
 
             bool vehicleFound = false;
 
-            foreach (Vehicle vehicle in _garage.vehicles)
+            foreach (Vehicle vehicle in _garage)
             {
                 if (vehicle.License.Equals(license, StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine($"Your vehicle, a {vehicle.GetType().Name} owned by {vehicle.Owner}, has been located." +
                         $"\nYou may now leave the garage.");
-                    _garage.vehicles.Remove(vehicle);
+                    //_garage.Remove(vehicle);
                     vehicleFound = true;
-                    _garage.currentOccupancy--;
                     break;
                 }
             }
@@ -164,7 +162,7 @@ namespace The_Garage_Exercise.Garage
 
             Console.WriteLine($"Listing vehicles of category '{input}'.");
 
-            foreach (Vehicle vehicle in _garage.vehicles)
+            foreach (Vehicle vehicle in _garage)
             {
                 if (vehicle != null)
                     if ((input == "all") || (input == vehicle.GetType().Name.ToLower()))
@@ -237,7 +235,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         public Vehicle FindVehicleByLicense(string license)
         {
-            foreach (Vehicle vehicle in _garage.vehicles)
+            foreach (Vehicle vehicle in _garage)
             {
                 if (
                     (vehicle != null) &&
@@ -303,23 +301,23 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         private List<Vehicle> GetVehiclesByMobility(string value)
         {
-            return _garage.vehicles.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+            return _garage.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
         }
 
         private List<Vehicle> GetVehiclesByWheels(string value)
         {
-            return _garage.vehicles.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+            return _garage.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
         }
 
         private List<Vehicle> GetVehiclesByColor(string value)
         {
-            return _garage.vehicles.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+            return _garage.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
             throw new NotImplementedException();
         }
 
         private List<Vehicle> GetVehiclesByType(string value)
         {
-            return _garage.vehicles.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+            return _garage.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
         }
 
 
