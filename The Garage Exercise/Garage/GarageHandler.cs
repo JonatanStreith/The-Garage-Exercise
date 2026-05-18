@@ -131,31 +131,24 @@ namespace The_Garage_Exercise.Garage
         {
             string license = GetInput("Please provide the license number of the vehicle you wish to retrieve: ");
 
-            bool vehicleFound = false;
+            Vehicle vehicle = _garage.First<Vehicle>(x => x.License == license);
 
-            foreach (Vehicle vehicle in _garage)
-            {
-                if (vehicle.License.Equals(license, StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine($"Your vehicle, a {vehicle.GetType().Name} owned by {vehicle.Owner}, has been located." +
-                        $"\nYou may now leave the garage.");
-                    //_garage.Remove(vehicle);
-                    vehicleFound = true;
-                    break;
-                }
-            }
-
-            if (vehicleFound == false)
+            if(vehicle == null)
             {
                 Console.WriteLine("No vehicle with that number exists in the garage." +
-    "\nDid you input the license number correctly?");
+                "\nDid you input the license number correctly?");
             }
-
+            else
+            {
+                Console.WriteLine($"Your vehicle, a {vehicle.GetType().Name} owned by {vehicle.Owner}, has been located." +
+                $"\nYou may now leave the garage.");
+                _garage.Remove(vehicle);
+            }
         }
 
         public void ListParkedVehicles()
         {
-            string input =GetInput("Please specify category of vehicle (or all): ");
+            string input = GetInput("Please specify category of vehicle (or all): ");
 
             int counter = 0;
 
@@ -320,37 +313,11 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return _garage.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
         }
 
-
-
-
-
-
-
-
-        public void RemoveVehicle(Vehicle vehicle)
-        {
-            Console.WriteLine("Vehicle will be removed.");
-
-        }
-
-        public void DestroyVehicle(Vehicle vehicle)
-        {
-            Console.WriteLine("Preparing wrecking crew...");
-
-        }
-
-        public void DestroyGarage()
-        {
-            Console.WriteLine("Garage is slated for destruction.");
-        }
-
         public string GetInput(string message)      //This function is mostly for stubbing
         {
             Console.WriteLine(message);
 
             return Console.ReadLine().ToLower();
         }
-
-
     }
 }
