@@ -131,7 +131,7 @@ namespace The_Garage_Exercise.Garage
         {
             string license = GetInput("Please provide the license number of the vehicle you wish to retrieve: ");
 
-            Vehicle vehicle = _garage.First<Vehicle>(x => x.License == license);
+            Vehicle vehicle = FindVehicleByLicense(license);
 
             if(vehicle == null)
             {
@@ -228,16 +228,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         public Vehicle FindVehicleByLicense(string license)
         {
-            foreach (Vehicle vehicle in _garage)
-            {
-                if (
-                    (vehicle != null) &&
-                    vehicle.License.Equals(license, StringComparison.OrdinalIgnoreCase)
-                    )
-                { return vehicle; }
-            }
-
-            return null;
+            return _garage.First<Vehicle>(x => x.License.Equals(license, StringComparison.OrdinalIgnoreCase));
         }
 
         public void FilterVehicle()
