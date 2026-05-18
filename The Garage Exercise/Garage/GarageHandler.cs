@@ -39,7 +39,7 @@ namespace The_Garage_Exercise.Garage
             Console.Write("Would you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
 
             string populateOrNot = Console.ReadLine().ToLower();
-            
+
             switch (populateOrNot)
             {
                 case "y":
@@ -133,7 +133,7 @@ namespace The_Garage_Exercise.Garage
 
             Vehicle vehicle = FindVehicleByLicense(license);
 
-            if(vehicle == null)
+            if (vehicle == null)
             {
                 Console.WriteLine("No vehicle with that number exists in the garage." +
                 "\nDid you input the license number correctly?");
@@ -156,7 +156,7 @@ namespace The_Garage_Exercise.Garage
             input == "all" ||
             vehicle.GetType().Name.Equals(input, StringComparison.OrdinalIgnoreCase)
             ).ToList();
-
+            
             foreach (Vehicle vehicle in results)
             {
                         ListSingleVehicle(vehicle);
@@ -250,7 +250,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         public List<Vehicle> FilterVehiclesByAspect(string aspect, string value)
         {
-            
+
 
             switch (aspect)
             {
