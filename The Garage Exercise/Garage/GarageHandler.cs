@@ -130,8 +130,7 @@ namespace The_Garage_Exercise.Garage
 
         public void RetrieveVehicle()
         {
-            Console.Write("Please provide the license number of the vehicle you wish to retrieve: ");
-            string license = Console.ReadLine();
+            string license = GetInput("Please provide the license number of the vehicle you wish to retrieve: ");
 
             bool vehicleFound = false;
 
@@ -158,9 +157,7 @@ namespace The_Garage_Exercise.Garage
 
         public void ListParkedVehicles()
         {
-            Console.Write("Please specify category of vehicle (or all): ");
-
-            string input = Console.ReadLine().ToLower();
+            string input =GetInput("Please specify category of vehicle (or all): ");
 
             int counter = 0;
 
@@ -177,7 +174,7 @@ namespace The_Garage_Exercise.Garage
                     }
             }
 
-            if(input== "all") 
+            if(input == "all") 
                 Console.WriteLine($"Total {counter} vehicles.");
             else 
             Console.WriteLine($"Total {counter} {input}s.");
@@ -254,13 +251,11 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         public void FilterVehicle()
         {
-            Console.WriteLine("You may search for vehicles by certain aspects.");
-            Console.WriteLine("\nWhich aspect would you like to search on? " +
-                "\n(Type, color, number (of wheels), mobility)");
-            string aspect = Console.ReadLine();
+            string aspect = GetInput("You may search for vehicles by certain aspects." +
+                                    "\nWhich aspect would you like to search on?" +
+                                    "\n(Type, color, number (of wheels), mobility)");
 
-            Console.WriteLine("And what are you looking for? (E.g. 'brown', 'car', 4, 'water')");
-            string value = Console.ReadLine().ToLower();
+            string value = GetInput("And what are you looking for? (E.g. 'brown', 'car', 4, 'water')");
 
             List<Vehicle> results = FilterVehiclesByAspect(aspect, value);
 
@@ -349,6 +344,13 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
         public void DestroyGarage()
         {
             Console.WriteLine("Garage is slated for destruction.");
+        }
+
+        public string GetInput(string message)      //This function is mostly for stubbing
+        {
+            Console.WriteLine(message);
+
+            return Console.ReadLine().ToLower();
         }
 
 
