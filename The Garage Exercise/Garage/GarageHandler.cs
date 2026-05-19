@@ -156,17 +156,17 @@ namespace The_Garage_Exercise.Garage
             input == "all" ||
             vehicle.GetType().Name.Equals(input, StringComparison.OrdinalIgnoreCase)
             ).ToList();
-            
+
             foreach (Vehicle vehicle in results)
             {
-                        ListSingleVehicle(vehicle);
+                ListSingleVehicle(vehicle);
             }
 
 
-            if(input == "all") 
+            if(input == "all")
                 Console.WriteLine($"Total {results.Count} vehicles.");
-            else 
-            Console.WriteLine($"Total {results.Count} {input}s.");
+            else
+                Console.WriteLine($"Total {results.Count} {input}s.");
         }
 
         public void ListSingleVehicle(Vehicle vehicle)
@@ -237,7 +237,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             string value = GetInput("And what are you looking for? (E.g. 'brown', 'car', 4, 'water')");
 
-            List<Vehicle> results = FilterVehiclesByAspect(aspect, value);
+            List<Vehicle> results = FilterVehiclesByAspect(aspect, value).ToList();
 
 
             Console.WriteLine($"{results.Count} vehicles found.");
@@ -248,7 +248,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         }
 
-        public List<Vehicle> FilterVehiclesByAspect(string aspect, string value)
+        public IEnumerable<Vehicle> FilterVehiclesByAspect(string aspect, string value)
         {
 
 
@@ -281,25 +281,25 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
         }
 
-        private List<Vehicle> GetVehiclesByMobility(string value)
+        private IEnumerable<Vehicle> GetVehiclesByMobility(string value)
         {
-            return _garage.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+            return _garage.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        private List<Vehicle> GetVehiclesByWheels(string value)
+        private IEnumerable<Vehicle> GetVehiclesByWheels(string value)
         {
-            return _garage.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+            return _garage.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        private List<Vehicle> GetVehiclesByColor(string value)
+        private IEnumerable<Vehicle> GetVehiclesByColor(string value)
         {
-            return _garage.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+            return _garage.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase));
             throw new NotImplementedException();
         }
 
-        private List<Vehicle> GetVehiclesByType(string value)
+        private IEnumerable<Vehicle> GetVehiclesByType(string value)
         {
-            return _garage.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+            return _garage.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
         public string GetInput(string message)      //This function is mostly for stubbing
@@ -307,6 +307,126 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             Console.WriteLine(message);
 
             return Console.ReadLine().ToLower();
+        }
+
+
+
+
+
+
+
+
+
+
+
+        public void MultiFilterVehicle()
+        {
+            Console.WriteLine("This is an experimental feature and may not work properly with faulty inputs." +
+                "\nThe proper query format is: [color] [mobility] type [with number wheels] ([] indicate optional inputs)" +
+                "\n'Vehicle' may be used to categorize any and all vehicle types. Numericals for wheels only." +
+                "\nExample: 'red land car with 4 wheels', 'air bicycle with 1 wheel', 'blue vehicle'." +
+                "\n\nPlease type in what vehicle(s) you are looking for. ");
+
+            string[] input = Console.ReadLine().ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+
+            FilterData data = MultiFilterParse(input);
+
+
+            List<Vehicle> finalList = PerformFilter(data).ToList();
+
+            foreach (Vehicle vehicle in finalList) 
+            {
+                ListSingleVehicle(vehicle);
+
+            }
+
+        }
+
+        private IEnumerable<Vehicle> PerformFilter(FilterData data)
+        {
+
+            IEnumerable<Vehicle> byType = null;
+            IEnumerable<Vehicle> byWheels = null;
+            IEnumerable<Vehicle> byColor = null;
+            IEnumerable<Vehicle> byMobility = null;
+
+            //If input was for 'vehicle' or no legit type was entered, just give us all vehicles                
+            if (data.TypeFilter != null && data.TypeFilter != "vehicle")
+                byType = GetVehiclesByType(data.TypeFilter);
+            else byType = _garage;
+
+            if (data.MobilityFilter != null)
+                byMobility = GetVehiclesByMobility(data.MobilityFilter);
+
+            if (data.WheelsFilter != -1)
+                byWheels = GetVehiclesByWheels(data.WheelsFilter.ToString());
+
+            if (data.ColorFilter != null)
+                byColor = GetVehiclesByColor(data.ColorFilter);
+
+
+
+            IEnumerable<Vehicle> collection = byType;
+
+            if(byMobility != null)
+                collection = collection.Union(byMobility);
+
+            if (byWheels != null)
+                collection = collection.Union(byWheels);
+
+            if (byColor != null)
+                collection = collection.Union(byColor);
+
+            return collection;
+
+
+        }
+
+        private FilterData MultiFilterParse(string[] input)
+        {
+            string? typeFilter = null;
+            string? mobilityFilter = null;
+            string? colorFilter = null;
+            int? wheelsFilter = -1;
+
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == "vehicle" || Enum.IsDefined(typeof(VehicleTypes), input[i]))
+                {
+                    //This input is a vehicle
+                    typeFilter = input[i];
+
+                }
+
+                else if (Enum.IsDefined(typeof(Mobility), input[i]))
+                {
+                    //This input is a mobility
+                    mobilityFilter = input[i];
+                }
+
+                else if (input[i] == "wheels" || input[i] == "wheel")
+                {
+                    //input i-1 (the preceding one), if not less than 0, should be a number
+                    if (i - 1 >= 0)
+                    {
+                        bool success = int.TryParse(input[i-1], out int result);
+                        if (success) wheelsFilter = result;
+                        else wheelsFilter = -1;
+                    }
+                    else wheelsFilter = -1;
+                }
+
+                else if (i == 0)
+                {
+                    //If it's the first word and isn't a vehicle or mobility, it's a color
+                    colorFilter = input[i];
+                }
+            }
+
+            return new FilterData(typeFilter, mobilityFilter, colorFilter, wheelsFilter);
+
         }
     }
 }
