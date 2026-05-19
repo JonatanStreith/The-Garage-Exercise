@@ -320,10 +320,12 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         public void MultiFilterVehicle()
         {
-            Console.WriteLine("This is an experimental feature and may not work properly with faulty inputs." +
-                "\nThe proper query format is: [color] [mobility] type [with number wheels] ([] indicate optional inputs)" +
-                "\n'Vehicle' may be used to categorize any and all vehicle types. Numericals for wheels only." +
-                "\nExample: 'red land car with 4 wheels', 'air bicycle with 1 wheel', 'blue vehicle'." +
+            Console.WriteLine("\nThis is an experimental feature and may not work properly with faulty inputs." +
+                "\nSpecify [color] [mobility] [type] [n wheels] as desired in any order." +
+                "\nExample: 'red land car 4 wheels', 'air bicycle 1 wheel', 'blue 5 wheels vehicle water'." +
+                "\n'Vehicle' may be used to categorize any and all vehicle types and will be default if not specified. " +
+                "\nNumericals for wheels only." +
+                "\nIn case of conflicting inputs ('red green air land boat bicycle'), last entry will apply." +
                 "\n\nPlease type in what vehicle(s) you are looking for. ");
 
             string[] input = Console.ReadLine().ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
