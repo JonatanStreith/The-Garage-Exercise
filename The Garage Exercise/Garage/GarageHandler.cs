@@ -237,7 +237,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             string value = GetInput("And what are you looking for? (E.g. 'brown', 'car', 4, 'water')");
 
-            List<Vehicle> results = FilterVehiclesByAspect(aspect, value).ToList();
+            List<Vehicle> results = FilterVehiclesByAspect(aspect, value, _garage).ToList();
 
 
             Console.WriteLine($"{results.Count} vehicles found.");
@@ -248,7 +248,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         }
 
-        public IEnumerable<Vehicle> FilterVehiclesByAspect(string aspect, string value)
+        public IEnumerable<Vehicle> FilterVehiclesByAspect(string aspect, string value, IEnumerable<Vehicle> collection)
         {
 
 
@@ -256,19 +256,19 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             {
                 case "type":
                     {
-                        return GetVehiclesByType(value);
+                        return GetVehiclesByType(value, collection);
                     }
                 case "color":
                     {
-                        return GetVehiclesByColor(value);
+                        return GetVehiclesByColor(value, collection);
                     }
                 case "number":
                     {
-                        return GetVehiclesByWheels(value);
+                        return GetVehiclesByWheels(value, collection);
                     }
                 case "mobility":
                     {
-                        return GetVehiclesByMobility(value);
+                        return GetVehiclesByMobility(value, collection);
                     }
 
 
@@ -281,25 +281,24 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
         }
 
-        private IEnumerable<Vehicle> GetVehiclesByMobility(string value)
+        private IEnumerable<Vehicle> GetVehiclesByMobility(string value, IEnumerable<Vehicle> collection)
         {
-            return _garage.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase));
+            return collection.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        private IEnumerable<Vehicle> GetVehiclesByWheels(string value)
+        private IEnumerable<Vehicle> GetVehiclesByWheels(string value, IEnumerable<Vehicle> collection)
         {
-            return _garage.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase));
+            return collection.Where(p => p.Wheels.ToString().Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        private IEnumerable<Vehicle> GetVehiclesByColor(string value)
+        private IEnumerable<Vehicle> GetVehiclesByColor(string value, IEnumerable<Vehicle> collection)
         {
-            return _garage.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase));
-            throw new NotImplementedException();
+            return collection.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        private IEnumerable<Vehicle> GetVehiclesByType(string value)
+        private IEnumerable<Vehicle> GetVehiclesByType(string value, IEnumerable<Vehicle> collection)
         {
-            return _garage.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
+            return collection.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
         public string GetInput(string message)      //This function is mostly for stubbing
@@ -353,17 +352,17 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             //If input was for 'vehicle' or no legit type was entered, just give us all vehicles                
             if (data.TypeFilter != null && data.TypeFilter != "vehicle")
-                byType = GetVehiclesByType(data.TypeFilter);
+                byType = GetVehiclesByType(data.TypeFilter, _garage);
             else byType = _garage;
 
             if (data.MobilityFilter != null)
-                byMobility = GetVehiclesByMobility(data.MobilityFilter);
+                byMobility = GetVehiclesByMobility(data.MobilityFilter, _garage);
 
             if (data.WheelsFilter != -1)
-                byWheels = GetVehiclesByWheels(data.WheelsFilter.ToString());
+                byWheels = GetVehiclesByWheels(data.WheelsFilter.ToString(), _garage);
 
             if (data.ColorFilter != null)
-                byColor = GetVehiclesByColor(data.ColorFilter);
+                byColor = GetVehiclesByColor(data.ColorFilter, _garage);
 
 
 
