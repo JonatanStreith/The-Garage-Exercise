@@ -148,7 +148,7 @@ namespace The_Garage_Exercise.Garage
             List<Vehicle> results = _garage.Where(vehicle =>
             input == "all" ||
             vehicle.GetType().Name.Equals(input, StringComparison.OrdinalIgnoreCase)
-            ).ToList();
+            ).OrderBy(vehicle => vehicle.GetType().Name).ToList();
 
             foreach (Vehicle vehicle in results)
             {
@@ -363,7 +363,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             if (data.ColorFilter != null)
                 collection = GetVehiclesByColor(data.ColorFilter, collection);
 
-            return collection;
+            return collection.OrderBy(vehicle => vehicle.GetType().Name);
         }
 
         private FilterData MultiFilterParse(string[] input)
