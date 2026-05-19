@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace The_Garage_Exercise
@@ -14,11 +15,20 @@ namespace The_Garage_Exercise
             WheelsFilter = wheelsFilter;
         }
 
-        internal string TypeFilter { get; }
-        internal string MobilityFilter { get; }
-        internal string ColorFilter { get; }
-        internal int WheelsFilter { get; }
+        internal readonly string TypeFilter { get; }
+        internal readonly string MobilityFilter { get; }
+        internal readonly string ColorFilter { get; }
+        internal readonly int WheelsFilter { get; }
 
-
+        internal bool IsEmpty()
+        {
+            if(
+                TypeFilter == null && 
+                MobilityFilter == null && 
+                ColorFilter == null && 
+                WheelsFilter == -1
+                ) return true;
+            else return false;
+        }
     }
 }

@@ -31,7 +31,6 @@ namespace The_Garage_Exercise.Garage
                     Console.Write("\nThat is not a legitimate number." +
                     "\nPlease specify size of garage: ");
             }
-
         }
 
         public void PopulateOrNot()
@@ -57,9 +56,7 @@ namespace The_Garage_Exercise.Garage
                         Console.WriteLine("\nThis garage will be empty from the start.");
                         break;
                     }
-
             }
-
         }
 
         public void PopulateGarage(int number)
@@ -80,13 +77,9 @@ namespace The_Garage_Exercise.Garage
             }
         }
 
-
-
         public void ParkVehicle()       //Return a resultcode?
         {
             Console.WriteLine("\nYou have chosen to park your vehicle.");
-
-
 
             if (_garage.NumberOfParkingSpots <= _garage.CurrentOccupancy)    //Are there not more spots than are used?
             {
@@ -95,7 +88,6 @@ namespace The_Garage_Exercise.Garage
                 return;
             }
 
-
             Vehicle vehicle = Vehicle.RegisterVehicle();
 
             if (vehicle == null)
@@ -103,7 +95,6 @@ namespace The_Garage_Exercise.Garage
                 Console.WriteLine("\nRegistration failed.");
                 return;
             }
-
 
             Console.WriteLine($"\nA parking spot is available.");
 
@@ -165,7 +156,7 @@ namespace The_Garage_Exercise.Garage
             }
 
 
-            if(input == "all")
+            if (input == "all")
                 Console.WriteLine($"Total {results.Count} vehicles.");
             else
                 Console.WriteLine($"Total {results.Count} {input}s.");
@@ -221,7 +212,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                         break;
                     }
             }
-
         }
 
 
@@ -310,16 +300,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return Console.ReadLine().ToLower();
         }
 
-
-
-
-
-
-
-
-
-
-
         public void MultiFilterVehicle()
         {
             Console.WriteLine("\nYou may filter the vehicle list by specific key words." +
@@ -332,34 +312,37 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             string[] input = Console.ReadLine().ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-
             FilterData data = MultiFilterParse(input);
-
 
             List<Vehicle> finalList = PerformFilter(data).ToList();
 
             PrintListTitle(finalList.Count, data);
 
-
-            foreach (Vehicle vehicle in finalList) 
+            foreach (Vehicle vehicle in finalList)
             {
                 ListSingleVehicle(vehicle);
-
             }
-
         }
 
         private void PrintListTitle(int count, FilterData data)
         {
-            Console.Write($"\n{count} entires found matching the search for");
 
-            if (data.ColorFilter != null) { Console.Write($" '{data.ColorFilter}'"); }
-            if (data.MobilityFilter != null) { Console.Write($" '{data.MobilityFilter}'"); }
-            if (data.TypeFilter != null) { Console.Write($" '{data.TypeFilter}'"); }
-            if (data.WheelsFilter != -1) { Console.Write($" '{data.WheelsFilter} wheel(s)'"); }
-            Console.WriteLine(".\n");
+            if (data.IsEmpty())
+            {
+                Console.WriteLine($"\n{count} entires found.");
+            }
+            else
+            {
+                Console.Write($"\n{count} entires found matching the search for");
+
+                if (data.ColorFilter != null) { Console.Write($" '{data.ColorFilter}'"); }
+                if (data.MobilityFilter != null) { Console.Write($" '{data.MobilityFilter}'"); }
+                if (data.TypeFilter != null) { Console.Write($" '{data.TypeFilter}'"); }
+                if (data.WheelsFilter != -1) { Console.Write($" '{data.WheelsFilter} wheel(s)'"); }
+                Console.WriteLine(".\n");
+            }
+
         }
-
         private IEnumerable<Vehicle> PerformFilter(FilterData data)
         {
 
@@ -381,8 +364,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                 collection = GetVehiclesByColor(data.ColorFilter, collection);
 
             return collection;
-
-
         }
 
         private FilterData MultiFilterParse(string[] input)
@@ -392,14 +373,12 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             string? colorFilter = null;
             int wheelsFilter = -1;
 
-
             for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] == "vehicle" || Enum.IsDefined(typeof(VehicleTypes), input[i]))
                 {
                     //This input is a vehicle
                     typeFilter = input[i];
-
                 }
 
                 else if (Enum.IsDefined(typeof(Mobility), input[i]))
@@ -413,7 +392,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                     //input i-1 (the preceding one), if not less than 0, should be a number
                     if (i - 1 >= 0)
                     {
-                        bool success = int.TryParse(input[i-1], out int result);
+                        bool success = int.TryParse(input[i - 1], out int result);
                         if (success) wheelsFilter = result;
                         else wheelsFilter = -1;
                     }
@@ -428,7 +407,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
 
             return new FilterData(typeFilter, mobilityFilter, colorFilter, wheelsFilter);
-
         }
     }
 }
