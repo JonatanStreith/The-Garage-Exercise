@@ -388,7 +388,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             string? typeFilter = null;
             string? mobilityFilter = null;
             string? colorFilter = null;
-            int? wheelsFilter = -1;
+            int wheelsFilter = -1;
 
 
             for (int i = 0; i < input.Length; i++)

@@ -6,7 +6,7 @@ namespace The_Garage_Exercise
 {
     internal struct FilterData
     {
-        internal FilterData(string? typeFilter, string? mobilityFilter, string? colorFilter, int? wheelsFilter)
+        internal FilterData(string? typeFilter, string? mobilityFilter, string? colorFilter, int wheelsFilter)
         {
             TypeFilter = typeFilter;
             MobilityFilter = mobilityFilter;
