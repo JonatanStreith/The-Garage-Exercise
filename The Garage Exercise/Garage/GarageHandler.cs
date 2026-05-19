@@ -231,7 +231,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return _garage.FirstOrDefault<Vehicle>(x => x.License.Equals(license, StringComparison.OrdinalIgnoreCase), null);
         }
 
-        public void FilterVehicle()
+        /*public void FilterVehicle()
         {
             string aspect = GetInput("\nYou may search for vehicles by certain aspects." +
                                     "\nWhich aspect would you like to search on?" +
@@ -248,9 +248,9 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                 ListSingleVehicle(vehicle);
             }
 
-        }
+        }*/
 
-        public IEnumerable<Vehicle> FilterVehiclesByAspect(string aspect, string value, IEnumerable<Vehicle> collection)
+        /*public IEnumerable<Vehicle> FilterVehiclesByAspect(string aspect, string value, IEnumerable<Vehicle> collection)
         {
 
 
@@ -281,7 +281,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                         return null;
                     }
             }
-        }
+        }*/
 
         private IEnumerable<Vehicle> GetVehiclesByMobility(string value, IEnumerable<Vehicle> collection)
         {

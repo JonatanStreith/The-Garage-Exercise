@@ -21,7 +21,6 @@ namespace The_Garage_Exercise
             "\n(R)etrieve vehicle" +
             "\n(L)ist vehicles" +
             "\n(F)ilter vehicles" +
-            "\n(M)ulti filter vehicles" +
             "\n(Q)uit and leave the garage" +
             "\n";
         public static void DisplayMenu()
@@ -64,13 +63,6 @@ namespace The_Garage_Exercise
 
                     case "F":
                     case "Filter":
-                        {
-                            garageHandler.FilterVehicle();
-                            break;
-                        }
-
-                    case "M":
-                    case "Multi":
                         {
                             garageHandler.MultiFilterVehicle();
                             break;
