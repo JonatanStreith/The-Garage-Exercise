@@ -14,7 +14,8 @@ namespace The_Garage_Exercise
             "\nFailure to comply may result in vehicular reposession or destruction." +
             "\n";
 
-        static readonly string listOfChoices = "Options are:" +
+        static readonly string listOfChoices = "\n* * * * * * * * * * * * * * * * * * * *" +
+            "\nOptions are:" +
             "\n" +
             "\n(P)ark vehicle (in available spot)" +
             "\n(R)etrieve vehicle" +
@@ -78,14 +79,14 @@ namespace The_Garage_Exercise
                     case "Q":
                     case "Quit":
                         {
-                            Console.WriteLine("Okay, bye!");
+                            Console.WriteLine("\nOkay, bye!");
                             return;
                         }
 
 
                     default:
                         {
-                            Console.WriteLine("That is not an acceptable choice."); ;
+                            Console.WriteLine("\nThat is not an acceptable choice."); ;
                             break;
                         }
 

@@ -32,17 +32,16 @@ namespace The_Garage_Exercise.Vehicles
         public static Vehicle RegisterVehicle()
             //Move this to GarageHandler?
         {
-            Console.WriteLine("You are required to provide the specifics of your vehicle for the registry." +
+            Console.WriteLine("\nYou are required to provide the specifics of your vehicle for the registry." +
                             "\nMultiple inputs must be separated by a comma. Some inputs may be specific types." +
                             "\nFailure to comply may result in failed registration, denied parking, and destruction of vehicle." +
                             "\nAll information is confidential and will be sold to the highest bidder." +
-                            "\nPlease ignore the previous sentence." +
-                            "\n");
+                            "\nPlease ignore the previous sentence.");
 
 
             Vehicle? vehicle;
 
-            Console.WriteLine("Please specify your type of vehicle." +
+            Console.WriteLine("\nPlease specify your type of vehicle." +
                 "\nAvailable options are: Car, bus, motorcycle, bicycle, boat, and airplane.");
             Console.Write("Vehicle type: ");
 
