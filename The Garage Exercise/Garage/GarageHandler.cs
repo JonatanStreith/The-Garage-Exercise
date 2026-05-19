@@ -322,11 +322,11 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         public void MultiFilterVehicle()
         {
-            Console.WriteLine("\nThis is an experimental feature and may not work properly with faulty inputs." +
+            Console.WriteLine("\nYou may filter the vehicle list by specific key words." +
                 "\nSpecify [color] [mobility] [type] [n wheels] as desired in any order." +
                 "\nExample: 'red land car 4 wheels', 'air bicycle 1 wheel', 'blue 5 wheels vehicle water'." +
                 "\n'Vehicle' may be used to categorize any and all vehicle types and will be default if not specified. " +
-                "\nNumericals for wheels only." +
+                "\nNumericals for wheels only. Illegitimate key words will be ignored." +
                 "\nIn case of conflicting inputs ('red green air land boat bicycle'), last entry will apply." +
                 "\n\nPlease type in what vehicle(s) you are looking for. ");
 
