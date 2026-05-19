@@ -11,7 +11,7 @@ namespace The_Garage_Exercise.Vehicles
         private int _cylinderVolume;
         private FuelType _fuelType;
 
-        public Motorcycle(string license, string owner, string color, int wheels, Mobility mobility, int cylinderVolume, FuelType fuelType) : base(license, owner, color, wheels, mobility)
+        public Motorcycle(string license, string owner, Color color, int wheels, Mobility mobility, int cylinderVolume, FuelType fuelType) : base(license, owner, color, wheels, mobility)
         {
             CylinderVolume = cylinderVolume;
             FuelType = fuelType;
@@ -41,6 +41,7 @@ namespace The_Garage_Exercise.Vehicles
             }
 
             bool validInputs = (    //Assessing if all these inputs are valid
+                Color.TryParse(generalInfo[0], out Color color) &
                 int.TryParse(generalInfo[1], out int numWheels) &
                 Mobility.TryParse(generalInfo[2].ToLower(), out Mobility mobility) &
                 int.TryParse(typeInfo[0], out int cylVolume) &
@@ -59,7 +60,7 @@ namespace The_Garage_Exercise.Vehicles
                 Console.WriteLine("Thank you. Generating registry information...");
 
                 return new Motorcycle(ownership[1], ownership[0],
-                generalInfo[0], numWheels, mobility,
+                color, numWheels, mobility,
                 cylVolume, fuelType
                 );
             }

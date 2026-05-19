@@ -13,7 +13,7 @@ namespace The_Garage_Exercise.Vehicles
         private int _numberOfSeats;
         private int _length;
 
-        public Airplane(string license, string owner, string color, int wheels, Mobility mobility,
+        public Airplane(string license, string owner, Color color, int wheels, Mobility mobility,
             int numberOfEngines, int cylinderVolume, FuelType fuelType, int numberOfSeats, int length)
             : base(license, owner, color, wheels, mobility)
         {
@@ -59,6 +59,7 @@ namespace The_Garage_Exercise.Vehicles
 
 
             bool validInputs = (    //Assessing if all these inputs are valid
+                Color.TryParse(generalInfo[0], out Color color) &
                 int.TryParse(generalInfo[1], out int numWheels) &
                 Mobility.TryParse(generalInfo[2].ToLower(), out Mobility mobility) &
                 int.TryParse(typeInfo[0], out int numEngines) &
@@ -80,7 +81,7 @@ namespace The_Garage_Exercise.Vehicles
                 Console.WriteLine("Thank you. Generating registry information...");
 
                 return new Airplane(ownership[1], ownership[0],
-                generalInfo[0], numWheels, mobility,
+                color, numWheels, mobility,
                 numEngines, cylVolume, fuelType, numSeats, length
                 );
             }

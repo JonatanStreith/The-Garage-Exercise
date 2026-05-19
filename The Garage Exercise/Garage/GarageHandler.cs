@@ -66,11 +66,11 @@ namespace The_Garage_Exercise.Garage
         {
             Console.WriteLine("Garage is being populated, probably.");
 
-            Vehicle v1 = new Car("123ABC", "Stefan Sjögall", "black", 4, Mobility.land, 45, FuelType.gasoline, 4);
-            Vehicle v2 = new Boat("448JXR", "Captain Crunch", "brown", 0, Mobility.water, 45, FuelType.gasoline, 1200);
-            Vehicle v3 = new Airplane("WSB-8840", "Baloo", "red", 0, Mobility.air, 30, 4, FuelType.gasoline, 12, 1800);
-            Vehicle v4 = new Motorcycle("FRIENDSHIP", "Kamen Rider Fourze", "white", 2, Mobility.land, 45, FuelType.gasoline);
-            Vehicle v5 = new Bus("MAGIC", "Mrs Frizzle", "yellow", 8, Mobility.land, 45, FuelType.gasoline, 28, 1800);
+            Vehicle v1 = new Car("123ABC", "Stefan Sjögall", Color.black, 4, Mobility.land, 45, FuelType.gasoline, 4);
+            Vehicle v2 = new Boat("448JXR", "Captain Crunch", Color.brown, 0, Mobility.water, 45, FuelType.gasoline, 1200);
+            Vehicle v3 = new Airplane("WSB-8840", "Baloo", Color.red, 0, Mobility.air, 30, 4, FuelType.gasoline, 12, 1800);
+            Vehicle v4 = new Motorcycle("FRIENDSHIP", "Kamen Rider Fourze", Color.white, 2, Mobility.land, 45, FuelType.gasoline);
+            Vehicle v5 = new Bus("MAGIC", "Mrs Frizzle", Color.yellow, 8, Mobility.land, 45, FuelType.gasoline, 28, 1800);
 
             Vehicle[] populate = { v1, v2, v3, v4, v5 };
 
@@ -293,7 +293,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         private IEnumerable<Vehicle> GetVehiclesByColor(string value, IEnumerable<Vehicle> collection)
         {
-            return collection.Where(p => p.Color.Equals(value, StringComparison.OrdinalIgnoreCase));
+            return collection.Where(p => p.Color.ToString().Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
         private IEnumerable<Vehicle> GetVehiclesByType(string value, IEnumerable<Vehicle> collection)
