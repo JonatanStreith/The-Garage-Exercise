@@ -345,37 +345,22 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
         private IEnumerable<Vehicle> PerformFilter(FilterData data)
         {
 
-            IEnumerable<Vehicle> byType = null;
-            IEnumerable<Vehicle> byWheels = null;
-            IEnumerable<Vehicle> byColor = null;
-            IEnumerable<Vehicle> byMobility = null;
+            IEnumerable<Vehicle> collection;
 
             //If input was for 'vehicle' or no legit type was entered, just give us all vehicles                
             if (data.TypeFilter != null && data.TypeFilter != "vehicle")
-                byType = GetVehiclesByType(data.TypeFilter, _garage);
-            else byType = _garage;
+                collection = GetVehiclesByType(data.TypeFilter, _garage);
+            else collection = _garage;
 
+            //Filter the existing collection step by step
             if (data.MobilityFilter != null)
-                byMobility = GetVehiclesByMobility(data.MobilityFilter, _garage);
+                collection = GetVehiclesByMobility(data.MobilityFilter, collection);
 
             if (data.WheelsFilter != -1)
-                byWheels = GetVehiclesByWheels(data.WheelsFilter.ToString(), _garage);
+                collection = GetVehiclesByWheels(data.WheelsFilter.ToString(), collection);
 
             if (data.ColorFilter != null)
-                byColor = GetVehiclesByColor(data.ColorFilter, _garage);
-
-
-
-            IEnumerable<Vehicle> collection = byType;
-
-            if(byMobility != null)
-                collection = collection.Union(byMobility);
-
-            if (byWheels != null)
-                collection = collection.Union(byWheels);
-
-            if (byColor != null)
-                collection = collection.Union(byColor);
+                collection = GetVehiclesByColor(data.ColorFilter, collection);
 
             return collection;
 
