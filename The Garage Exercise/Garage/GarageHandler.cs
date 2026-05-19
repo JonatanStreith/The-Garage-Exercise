@@ -64,7 +64,7 @@ namespace The_Garage_Exercise.Garage
 
         public void PopulateGarage(int number)
         {
-            Console.WriteLine("Garage is being populated, probably.");
+            Console.WriteLine("Garage is being populated.");
 
             Vehicle v1 = new Car("123ABC", "Stefan Sjögall", Color.black, 4, Mobility.land, 45, FuelType.gasoline, 4);
             Vehicle v2 = new Boat("448JXR", "Captain Crunch", Color.brown, 0, Mobility.water, 45, FuelType.gasoline, 1200);
@@ -226,7 +226,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
         public Vehicle FindVehicleByLicense(string license)
         {
-            return _garage.First<Vehicle>(x => x.License.Equals(license, StringComparison.OrdinalIgnoreCase));
+            return _garage.FirstOrDefault<Vehicle>(x => x.License.Equals(license, StringComparison.OrdinalIgnoreCase), null);
         }
 
         public void FilterVehicle()
@@ -334,12 +334,26 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             List<Vehicle> finalList = PerformFilter(data).ToList();
 
+            PrintListTitle(finalList.Count, data);
+
+
             foreach (Vehicle vehicle in finalList) 
             {
                 ListSingleVehicle(vehicle);
 
             }
 
+        }
+
+        private void PrintListTitle(int count, FilterData data)
+        {
+            Console.Write($"{count} entires found matching the search for");
+
+            if (data.ColorFilter != null) { Console.Write($" '{data.ColorFilter}'"); }
+            if (data.MobilityFilter != null) { Console.Write($" '{data.MobilityFilter}'"); }
+            if (data.TypeFilter != null) { Console.Write($" '{data.TypeFilter}'"); }
+            if (data.WheelsFilter != -1) { Console.Write($" '{data.WheelsFilter} wheel(s)'"); }
+            Console.WriteLine(".\n");
         }
 
         private IEnumerable<Vehicle> PerformFilter(FilterData data)
