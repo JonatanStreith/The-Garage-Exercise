@@ -23,20 +23,7 @@ namespace The_Garage_Exercise.Vehicles
         public FuelType FuelType { get { return _fuelType; } set { _fuelType = value; } }
         public int Length { get { return _length; } set { _length = value; } }
 
-        public static Boat RegisterVehicle(string[] ownership, string[] generalInfo)
-        {
-
-            Console.WriteLine("Please specify technical details: " +
-                "\nCylinder volume (number), fuel type (gasoline or diesel) " +
-                "\nand length (number in centimeters).");
-            string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
-
-
-                return CreateBoatFromInputs(ownership, generalInfo, typeInfo);
-
-        }
-
-        public static Boat CreateBoatFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        public static Boat RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
 
             if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 3)

@@ -31,25 +31,7 @@ namespace The_Garage_Exercise.Vehicles
         public int NumberOfSeats { get { return _numberOfSeats; } set { _numberOfSeats = value; } }
         public int Length { get { return _length; } set { _length = value; } }
 
-
-
-        public static Airplane RegisterVehicle(string[] ownership, string[] generalInfo)
-        {
-
-            Console.WriteLine("Please specify technical details: " +
-                "\nNumber of engines (number), cylinder volume (number), " +
-                "\nfuel type (gasoline or diesel), number of seats (number)" +
-                "\nand length (number in centimeters).");
-            string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
-
-
-                return CreateAirplaneFromInputs(ownership, generalInfo, typeInfo);
-
-
-
-        }
-
-        public static Airplane CreateAirplaneFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        public static Airplane RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
 
             if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 1)

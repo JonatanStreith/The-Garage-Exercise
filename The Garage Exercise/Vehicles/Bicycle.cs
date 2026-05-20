@@ -17,21 +17,7 @@ namespace The_Garage_Exercise.Vehicles
 
         public int NumberOfSeats { get { return _numberOfSeats; } set { _numberOfSeats = value; } }
 
-
-        public static Bicycle RegisterVehicle(string[] ownership, string[] generalInfo)
-        {
-            Console.WriteLine("Please specify technical details: " +
-                "\nNumber of  seats (number).");
-            string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
-
-
-
-            return CreateBicycleFromInputs(ownership, generalInfo, typeInfo);
-
-
-        }
-
-        public static Bicycle CreateBicycleFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        public static Bicycle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
 
 

@@ -21,19 +21,7 @@ namespace The_Garage_Exercise.Vehicles
         public int CylinderVolume { get { return _cylinderVolume; } set { _cylinderVolume = value; } }
         public FuelType FuelType { get { return _fuelType; } set { _fuelType = value; } }
 
-        public static Motorcycle RegisterVehicle(string[] ownership, string[] generalInfo)
-        {
-
-            Console.WriteLine("Please specify technical details: " +
-                "\nCylinder volume (number) and fuel type (gasoline or diesel).");
-            string[] typeInfo = Console.ReadLine().Split(",").Select(x => x.Trim()).ToArray();
-
-
-                return CreateMotorcycleFromInputs(ownership, generalInfo, typeInfo);
-
-        }
-
-        public static Motorcycle CreateMotorcycleFromInputs(string[] ownership, string[] generalInfo, string[] typeInfo)
+        public static Motorcycle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
             if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 2)
             {
