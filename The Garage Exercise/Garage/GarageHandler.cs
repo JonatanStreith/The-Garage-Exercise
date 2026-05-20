@@ -11,54 +11,57 @@ namespace The_Garage_Exercise.Garage
     internal class GarageHandler
     {
         private readonly Garage<Vehicle> _garage;
-        public GarageHandler()
+        public GarageHandler(int size, bool populate)
         {
-            _garage = new Garage<Vehicle>(SizeGarage());
+            _garage = new Garage<Vehicle>(size);
             Console.WriteLine("\nA new garage has been erected.");
 
-            PopulateOrNot();
-        }
-
-        public static int SizeGarage()
-        {
-            Console.Write("\nPlease specify size of garage (at least 5 is recommended): ");
-
-            while (true)
+            if (populate)
             {
-                bool success = int.TryParse(Console.ReadLine(), out int size);
-                if (success)
-                    return size;
-                else
-                    Console.Write("\nThat is not a legitimate number." +
-                    "\nPlease specify size of garage: ");
+                PopulateGarage((size < 5) ? size : 5);
             }
         }
 
-        public void PopulateOrNot()
-        {
-            Console.Write("\nWould you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
+        //public static int SizeGarage()
+        //{
+        //    Console.Write("\nPlease specify size of garage (at least 5 is recommended): ");
 
-            string populateOrNot = Console.ReadLine().ToLower();
+        //    while (true)
+        //    {
+        //        bool success = int.TryParse(Console.ReadLine(), out int size);
+        //        if (success)
+        //            return size;
+        //        else
+        //            Console.Write("\nThat is not a legitimate number." +
+        //            "\nPlease specify size of garage: ");
+        //    }
+        //}
 
-            switch (populateOrNot)
-            {
-                case "y":
-                    {
-                        Console.WriteLine("\nOkay, the garage will be populated with five vehicles " +
-                            "\n(or fewer depending on size).");
+        //public void PopulateOrNot()
+        //{
+        //    Console.Write("\nWould you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
 
-                        PopulateGarage((_garage.NumberOfParkingSpots < 5) ? _garage.NumberOfParkingSpots : 5);
-                        break;
-                    }
+        //    string populateOrNot = Console.ReadLine().ToLower();
 
-                case "n":
-                default:
-                    {
-                        Console.WriteLine("\nThis garage will be empty from the start.");
-                        break;
-                    }
-            }
-        }
+        //    switch (populateOrNot)
+        //    {
+        //        case "y":
+        //            {
+        //                Console.WriteLine("\nOkay, the garage will be populated with five vehicles " +
+        //                    "\n(or fewer depending on size).");
+
+        //                PopulateGarage((_garage.NumberOfParkingSpots < 5) ? _garage.NumberOfParkingSpots : 5);
+        //                break;
+        //            }
+
+        //        case "n":
+        //        default:
+        //            {
+        //                Console.WriteLine("\nThis garage will be empty from the start.");
+        //                break;
+        //            }
+        //    }
+        //}
 
         public void PopulateGarage(int number)
         {
@@ -231,7 +234,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return collection.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-
         private void PrintListTitle(int count, FilterData data)
         {
 
@@ -325,7 +327,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
             else return false;
         }
-
 
         private bool CheckForDuplicate(string license)
         {
