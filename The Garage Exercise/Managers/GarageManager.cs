@@ -5,9 +5,9 @@ using The_Garage_Exercise.Garage;
 using The_Garage_Exercise.Tools;
 using The_Garage_Exercise.Vehicles;
 
-namespace The_Garage_Exercise
+namespace The_Garage_Exercise.Managers
 {
-    internal class Manager
+    internal class GarageManager
     {
 
         private GarageHandler Handler { get; set; }
