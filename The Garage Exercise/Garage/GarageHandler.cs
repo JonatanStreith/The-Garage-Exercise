@@ -163,7 +163,7 @@ namespace The_Garage_Exercise.Garage
                 Console.WriteLine($"Total {results.Count} {input}s.");
         }
 
-        public void ListSingleVehicle(Vehicle vehicle)
+        private void ListSingleVehicle(Vehicle vehicle)
         {
             Console.WriteLine($"License number: {vehicle.License}, Owner: {vehicle.Owner}, Type: {vehicle.GetType().Name}." +
                 $"\nColor: {vehicle.Color}, Number of wheels: {vehicle.Wheels}, Mobility type: {vehicle.Mobility}.");
@@ -215,65 +215,26 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
         }
 
-
-
-        public Vehicle FindVehicleByLicense(string license)
+        public void MultiFilterVehicle(string input)
         {
-            return _garage.FirstOrDefault<Vehicle>(x => x.License.Equals(license, StringComparison.OrdinalIgnoreCase), null);
-        }
+            string[] filterValues = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-        /*public void FilterVehicle()
-        {
-            string aspect = GetInput("\nYou may search for vehicles by certain aspects." +
-                                    "\nWhich aspect would you like to search on?" +
-                                    "\n(Type, color, number (of wheels), mobility)");
+            FilterData data = MultiFilterParse(filterValues);
 
-            string value = GetInput("And what are you looking for? (E.g. 'brown', 'car', 4, 'water')");
+            List<Vehicle> finalList = PerformFilter(data).ToList();
 
-            List<Vehicle> results = FilterVehiclesByAspect(aspect, value, _garage).ToList();
+            PrintListTitle(finalList.Count, data);
 
-
-            Console.WriteLine($"{results.Count} vehicles found.");
-            foreach (Vehicle vehicle in results)
+            foreach (Vehicle vehicle in finalList)
             {
                 ListSingleVehicle(vehicle);
             }
+        }
 
-        }*/
-
-        /*public IEnumerable<Vehicle> FilterVehiclesByAspect(string aspect, string value, IEnumerable<Vehicle> collection)
+        private Vehicle FindVehicleByLicense(string license)
         {
-
-
-            switch (aspect)
-            {
-                case "type":
-                    {
-                        return GetVehiclesByType(value, collection);
-                    }
-                case "color":
-                    {
-                        return GetVehiclesByColor(value, collection);
-                    }
-                case "number":
-                    {
-                        return GetVehiclesByWheels(value, collection);
-                    }
-                case "mobility":
-                    {
-                        return GetVehiclesByMobility(value, collection);
-                    }
-
-
-
-                default:
-                    {
-                        Console.WriteLine("\nThis is not a known aspect.");
-                        return null;
-                    }
-            }
-        }*/
-
+            return _garage.FirstOrDefault<Vehicle>(x => x.License.Equals(license, StringComparison.OrdinalIgnoreCase), null);
+        }
         private IEnumerable<Vehicle> GetVehiclesByMobility(string value, IEnumerable<Vehicle> collection)
         {
             return collection.Where(p => p.Mobility.ToString().Equals(value, StringComparison.OrdinalIgnoreCase));
@@ -294,21 +255,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return collection.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        public void MultiFilterVehicle(string input)
-        {
-            string[] filterValues = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            FilterData data = MultiFilterParse(filterValues);
-
-            List<Vehicle> finalList = PerformFilter(data).ToList();
-
-            PrintListTitle(finalList.Count, data);
-
-            foreach (Vehicle vehicle in finalList)
-            {
-                ListSingleVehicle(vehicle);
-            }
-        }
 
         private void PrintListTitle(int count, FilterData data)
         {
