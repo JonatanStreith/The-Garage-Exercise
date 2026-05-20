@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace The_Garage_Exercise
+namespace The_Garage_Exercise.Tools
 {
     internal struct FilterData
     {
