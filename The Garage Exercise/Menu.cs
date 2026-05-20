@@ -28,7 +28,7 @@ namespace The_Garage_Exercise
             Console.WriteLine(openingText);
         }
 
-        public static void MakeChoice(GarageHandler garageHandler)
+        public static void MakeChoice(Manager manager)
         {
 
             while (true)
@@ -43,28 +43,28 @@ namespace The_Garage_Exercise
                     case "P":
                     case "Park":
                         {
-                            garageHandler.ParkVehicle();
+                            manager.ParkVehicle();
                             break;
                         }
 
                     case "R":
                     case "Retrieve":
                         {
-                            garageHandler.RetrieveVehicle();
+                            manager.RetrieveVehicle();
                             break;
                         }
 
                     case "L":
                     case "List":
                         {
-                            garageHandler.ListParkedVehicles();
+                            manager.ListParkedVehicles();
                             break;
                         }
 
                     case "F":
                     case "Filter":
                         {
-                            garageHandler.MultiFilterVehicle();
+                            manager.MultiFilterVehicle();
                             break;
                         }
 
@@ -81,8 +81,6 @@ namespace The_Garage_Exercise
                             Console.WriteLine("\nThat is not an acceptable choice."); ;
                             break;
                         }
-
-                        //TODO: Make all menu actions return a confirmation string.
                 }
             }
         }

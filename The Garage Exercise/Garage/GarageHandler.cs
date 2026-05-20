@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using The_Garage_Exercise.Enums;
+using The_Garage_Exercise.Tools;
 using The_Garage_Exercise.Vehicles;
 
 namespace The_Garage_Exercise.Garage
@@ -120,7 +121,7 @@ namespace The_Garage_Exercise.Garage
 
         public void RetrieveVehicle()
         {
-            string license = GetInput("\nPlease provide the license number of the vehicle you wish to retrieve: ");
+            string license = Helper.GetInput("\nPlease provide the license number of the vehicle you wish to retrieve: ");
 
             Vehicle vehicle = FindVehicleByLicense(license);
 
@@ -139,7 +140,7 @@ namespace The_Garage_Exercise.Garage
 
         public void ListParkedVehicles()
         {
-            string input = GetInput("\nPlease specify category of vehicle (or all): ");
+            string input = Helper.GetInput("\nPlease specify category of vehicle (or all): ");
 
             if (input == "") input = "all";
 
@@ -293,12 +294,12 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return collection.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        public string GetInput(string message)      //This function is mostly for stubbing
-        {
-            Console.WriteLine(message);
+        //public string GetInput(string message)      //This function is mostly for stubbing
+        //{
+        //    Console.WriteLine(message);
 
-            return Console.ReadLine().ToLower();
-        }
+        //    return Console.ReadLine().ToLower();
+        //}
 
         public void MultiFilterVehicle()
         {

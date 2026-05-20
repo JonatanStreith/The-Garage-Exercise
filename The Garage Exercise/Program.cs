@@ -6,13 +6,17 @@ namespace The_Garage_Exercise
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome!");
+            Console.WriteLine("Welcome to the garage!");
 
-            GarageHandler garageHandler = new GarageHandler();
+            Manager manager = new Manager();
 
-            Menu.DisplayMenu();
+            manager.InitializeGarage();
 
-            Menu.MakeChoice(garageHandler);
+            //GarageHandler garageHandler = new GarageHandler();
+
+            //Menu.DisplayMenu();
+
+            //Menu.MakeChoice(garageHandler);
         }
     }
 }
