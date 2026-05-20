@@ -105,7 +105,7 @@ namespace The_Garage_Exercise.Managers
 
             Console.WriteLine($"\nA parking spot is available.");
 
-            Vehicle vehicle = Vehicle.RegisterVehicle();
+            Vehicle vehicle = VehicleRegistrationManager.RegisterVehicle();
 
             if (vehicle == null)
             {
