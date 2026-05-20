@@ -52,7 +52,9 @@ namespace The_Garage_Exercise
 
         internal void RetrieveVehicle()
         {
-            Handler.RetrieveVehicle();
+            string retrievePrompt = "\nPlease provide the license number of the vehicle you wish to retrieve: ";
+
+            Handler.RetrieveVehicle(Helper.GetInput(retrievePrompt));
         }
     }
 }
