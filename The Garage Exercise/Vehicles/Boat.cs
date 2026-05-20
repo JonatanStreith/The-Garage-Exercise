@@ -23,7 +23,7 @@ namespace The_Garage_Exercise.Vehicles
         public FuelType FuelType { get { return _fuelType; } set { _fuelType = value; } }
         public int Length { get { return _length; } set { _length = value; } }
 
-        public static Boat RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
+        public static Vehicle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
 
             if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 3)

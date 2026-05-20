@@ -17,7 +17,7 @@ namespace The_Garage_Exercise.Vehicles
 
         public int NumberOfSeats { get { return _numberOfSeats; } set { _numberOfSeats = value; } }
 
-        public static Bicycle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
+        public static Vehicle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
 
 

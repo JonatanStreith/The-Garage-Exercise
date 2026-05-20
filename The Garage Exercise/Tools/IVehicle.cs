@@ -9,7 +9,7 @@ namespace The_Garage_Exercise.Tools
     {
 
 
-        internal static abstract Vehicle RegisterVehicle();
+        internal static abstract Vehicle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo);
 
     }
 }

@@ -21,7 +21,7 @@ namespace The_Garage_Exercise.Vehicles
         public int CylinderVolume { get { return _cylinderVolume; } set { _cylinderVolume = value; } }
         public FuelType FuelType { get { return _fuelType; } set { _fuelType = value; } }
 
-        public static Motorcycle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
+        public static Vehicle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
             if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 2)
             {
