@@ -78,32 +78,11 @@ namespace The_Garage_Exercise.Garage
             }
         }
 
-        public void ParkVehicle()       //Return a resultcode?
+        public void ParkVehicle(Vehicle vehicle)       //Return a resultcode?
         {
-            Console.WriteLine("\nYou have chosen to park your vehicle.");
-
-            if (_garage.NumberOfParkingSpots <= _garage.CurrentOccupancy)    //Are there not more spots than are used?
-            {
-                Console.WriteLine("\nApologies, but there are no free parking spots avilable currently. " +
-                                    "\nPlease try another garage.");
-                return;
-            }
-
-            Vehicle vehicle = Vehicle.RegisterVehicle();
-
-            if (vehicle == null)
-            {
-                Console.WriteLine("\nRegistration failed.");
-                return;
-            }
-
-            Console.WriteLine($"\nA parking spot is available.");
-
-            bool duplicate = (FindVehicleByLicense(vehicle.License) != null);
             //If we attempt to find a vehicle with the same license number and
             //it doesn't return null, we have a duplicate.
-
-            if (duplicate)
+            if (CheckForDuplicate(vehicle.License))
             {
                 Console.WriteLine("\nIllegitimate license number. " +
                     "\nA vehicle with the same number already exist in the garage. " +
@@ -345,6 +324,12 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                 return true;
             }
             else return false;
+        }
+
+
+        private bool CheckForDuplicate(string license)
+        {
+            return FindVehicleByLicense(license) != null;
         }
     }
 }

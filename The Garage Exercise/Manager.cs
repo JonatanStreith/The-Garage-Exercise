@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using The_Garage_Exercise.Garage;
 using The_Garage_Exercise.Tools;
+using The_Garage_Exercise.Vehicles;
 
 namespace The_Garage_Exercise
 {
@@ -47,7 +48,28 @@ namespace The_Garage_Exercise
 
         internal void ParkVehicle()
         {
-            Handler.ParkVehicle();
+            Console.WriteLine("\nYou have chosen to park your vehicle.");
+
+            bool freeSpot = Handler.CheckForFreeSpot();
+
+            if (!freeSpot)
+            {
+                Console.WriteLine("\nApologies, but there are no free parking spots avilable currently. " +
+                    "\nPlease try another garage.");
+                return;
+            }
+
+            Console.WriteLine($"\nA parking spot is available.");
+
+            Vehicle vehicle = Vehicle.RegisterVehicle();
+
+            if (vehicle == null)
+            {
+                Console.WriteLine("\nRegistration failed.");
+                return;
+            }
+
+            Handler.ParkVehicle(vehicle);
         }
 
         internal void RetrieveVehicle()
