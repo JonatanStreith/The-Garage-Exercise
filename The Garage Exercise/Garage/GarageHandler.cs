@@ -337,5 +337,14 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             return new FilterData(typeFilter, mobilityFilter, colorFilter, wheelsFilter);
         }
+
+        internal bool CheckForFreeSpot()
+        {
+            if (_garage.NumberOfParkingSpots > _garage.CurrentOccupancy)    //Are there more spots than are used?
+            {
+                return true;
+            }
+            else return false;
+        }
     }
 }
