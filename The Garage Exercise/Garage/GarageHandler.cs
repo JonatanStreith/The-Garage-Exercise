@@ -294,26 +294,11 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return collection.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        //public string GetInput(string message)      //This function is mostly for stubbing
-        //{
-        //    Console.WriteLine(message);
-
-        //    return Console.ReadLine().ToLower();
-        //}
-
-        public void MultiFilterVehicle()
+        public void MultiFilterVehicle(string input)
         {
-            Console.WriteLine("\nYou may filter the vehicle list by specific key words." +
-                "\nSpecify [color] [mobility] [type] [n wheels] as desired in any order." +
-                "\nExample: 'red land car 4 wheels', 'air bicycle 1 wheel', 'blue 5 wheels vehicle water'." +
-                "\n'Vehicle' may be used to categorize any and all vehicle types and will be default if not specified. " +
-                "\nNumericals for wheels only. Illegitimate key words will be ignored." +
-                "\nIn case of conflicting inputs ('red green air land boat bicycle'), last entry will apply." +
-                "\n\nPlease type in what vehicle(s) you are looking for. ");
+            string[] filterValues = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            string[] input = Console.ReadLine().ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            FilterData data = MultiFilterParse(input);
+            FilterData data = MultiFilterParse(filterValues);
 
             List<Vehicle> finalList = PerformFilter(data).ToList();
 
