@@ -381,6 +381,12 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                     typeFilter = input[i];
                 }
 
+                else if (Enum.IsDefined(typeof(Color), input[i]))
+                {
+                    //This input is a color
+                    colorFilter = input[i];
+                }
+
                 else if (Enum.IsDefined(typeof(Mobility), input[i]))
                 {
                     //This input is a mobility
@@ -397,12 +403,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                         else wheelsFilter = -1;
                     }
                     else wheelsFilter = -1;
-                }
-
-                else if (i == 0)
-                {
-                    //If it's the first word and isn't a vehicle or mobility, it's a color
-                    colorFilter = input[i];
                 }
             }
 
