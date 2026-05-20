@@ -239,7 +239,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             if (data.IsEmpty())
             {
-                Console.WriteLine($"\n{count} entires found.");
+                Console.WriteLine($"\nNo filters. {count} (all) entires found.");
             }
             else
             {
