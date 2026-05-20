@@ -138,10 +138,8 @@ namespace The_Garage_Exercise.Garage
             }
         }
 
-        public void ListParkedVehicles()
+        public void ListParkedVehicles(string input)
         {
-            string input = Helper.GetInput("\nPlease specify category of vehicle (or all): ");
-
             if (input == "") input = "all";
 
             Console.WriteLine($"\nListing vehicles of category '{input}':\n");

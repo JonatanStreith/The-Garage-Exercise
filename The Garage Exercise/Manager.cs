@@ -23,7 +23,9 @@ namespace The_Garage_Exercise
 
         internal void ListParkedVehicles()
         {
-            Handler.ListParkedVehicles();
+            string listPrompt = "\nPlease specify category of vehicle (or all): ";
+
+            Handler.ListParkedVehicles(Helper.GetInput(listPrompt));
         }
 
         internal void MultiFilterVehicle()
