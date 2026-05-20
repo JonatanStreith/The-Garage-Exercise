@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using The_Garage_Exercise.Garage;
+using The_Garage_Exercise.Managers;
 
 namespace The_Garage_Exercise
 {
@@ -28,7 +29,7 @@ namespace The_Garage_Exercise
             Console.WriteLine(openingText);
         }
 
-        public static void MakeChoice(Manager manager)
+        public static void MakeChoice(GarageManager manager)
         {
 
             while (true)
