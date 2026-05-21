@@ -42,6 +42,13 @@ namespace The_Garage_Exercise.Garage
 
         public void ParkVehicle(Vehicle vehicle)       //Return a resultcode?
         {
+
+            if (vehicle == null) 
+            { 
+                Console.WriteLine("You are trying to park a non-existent vehicle." +
+                    "\nThis is not possible.");
+                return;
+            }
             //If we attempt to find a vehicle with the same license number and
             //it doesn't return null, we have a duplicate.
             if (CheckForDuplicate(vehicle.License))
