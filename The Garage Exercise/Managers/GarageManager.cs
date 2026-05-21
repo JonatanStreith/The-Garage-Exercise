@@ -6,7 +6,6 @@ using The_Garage_Exercise.Tools;
 using The_Garage_Exercise.Vehicles;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("GarageHandlerTest")]
 namespace The_Garage_Exercise.Managers
 {
     internal class GarageManager
