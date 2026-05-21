@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using The_Garage_Exercise.Managers;
+using The_Garage_Exercise.Garage;
 
 namespace The_Garage_Exercise.Test
 {
@@ -11,6 +12,7 @@ namespace The_Garage_Exercise.Test
             int size = 7;
             bool populate = true;
 
+            GarageHandler handler = new Garage.GarageHandler(size, populate);
 
             GarageManager manager = new Managers.GarageManager();
 
