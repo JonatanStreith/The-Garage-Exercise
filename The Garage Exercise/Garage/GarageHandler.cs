@@ -21,7 +21,7 @@ namespace The_Garage_Exercise.Garage
             }
         }
 
-        internal Garage<Vehicle> Garage { get; }
+        internal Garage<Vehicle> Garage { get { return _garage; } }
         private void PopulateGarage(int number)
         {
             Console.WriteLine("\nGarage is being populated.");
