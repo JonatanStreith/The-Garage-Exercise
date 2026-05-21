@@ -22,7 +22,11 @@ namespace The_Garage_Exercise.Garage
         }
 
         internal Garage<Vehicle> Garage { get { return _garage; } }
-        private void PopulateGarage(int number)
+
+
+
+
+        private string PopulateGarage(int number)
         {
             Console.WriteLine("\nGarage is being populated.");
 
@@ -34,20 +38,24 @@ namespace The_Garage_Exercise.Garage
 
             Vehicle[] populate = { v1, v2, v3, v4, v5 };
 
+            int counter = 0;
             for (int i = 0; i < number; i++)
             {
                 _garage.Add(populate[i]);
+                counter++;
             }
+
+            return $"Garage populated with {counter} vehicles.";
         }
 
-        public void ParkVehicle(Vehicle vehicle)       //Return a resultcode?
+        public string ParkVehicle(Vehicle vehicle)       //Return a resultcode?
         {
 
             if (vehicle == null) 
             { 
                 Console.WriteLine("You are trying to park a non-existent vehicle." +
                     "\nThis is not possible.");
-                return;
+                return "Null vehicle.";
             }
             //If we attempt to find a vehicle with the same license number and
             //it doesn't return null, we have a duplicate.
@@ -56,6 +64,7 @@ namespace The_Garage_Exercise.Garage
                 Console.WriteLine("\nIllegitimate license number. " +
                     "\nA vehicle with the same number already exist in the garage. " +
                     "\nPolice has been alerted.");
+                return "Duplicate license number.";
             }
             else
             {
@@ -63,11 +72,12 @@ namespace The_Garage_Exercise.Garage
 
                 Console.WriteLine($"\nYour {vehicle.GetType().Name}, license number {vehicle.License}, " +
                     $"has been parked. Enjoy your stay.");
+                return $"Parking of vehicle with license {vehicle.License} successful.";
             }
 
         }
 
-        public void RetrieveVehicle(string license)
+        public string RetrieveVehicle(string license)
         {
 
             Vehicle vehicle = FindVehicleByLicense(license);
@@ -76,16 +86,19 @@ namespace The_Garage_Exercise.Garage
             {
                 Console.WriteLine("\nNo vehicle with that number exists in the garage." +
                 "\nDid you input the license number correctly?");
+                return $"Vehicle with license {license} not found.";
             }
             else
             {
                 Console.WriteLine($"\nYour vehicle, a {vehicle.GetType().Name} owned by {vehicle.Owner}, has been located and retrieved." +
                 $"\nYou may now leave the garage.");
                 _garage.Remove(vehicle);
+                return $"Retrieving of vehicle with license {license} successful.";
+
             }
         }
 
-        public void ListParkedVehicles(string input)
+        public string ListParkedVehicles(string input)
         {
             if (input == "") input = "all";
 
@@ -106,9 +119,11 @@ namespace The_Garage_Exercise.Garage
                 Console.WriteLine($"Total {results.Count} vehicles.");
             else
                 Console.WriteLine($"Total {results.Count} {input}s.");
+
+            return $"Listed {results.Count} vehicles of type {input}.";
         }
 
-        private void ListSingleVehicle(Vehicle vehicle)
+        private string ListSingleVehicle(Vehicle vehicle)
         {
             Console.WriteLine($"License number: {vehicle.License}, Owner: {vehicle.Owner}, Type: {vehicle.GetType().Name}." +
                 $"\nColor: {vehicle.Color}, Number of wheels: {vehicle.Wheels}, Mobility type: {vehicle.Mobility}.");
@@ -119,48 +134,48 @@ namespace The_Garage_Exercise.Garage
                         Console.WriteLine($"Cylinder volume: {(vehicle as Car).CylinderVolume}, Fuel type: {(vehicle as Car).FuelType}. " +
 $"Number of seats: {(vehicle as Car).NumberOfSeats}.\n");
 
-                        break;
+                        return "Listed single car.";
                     }
                 case "Boat":
                     {
                         Console.WriteLine($"Cylinder volume: {(vehicle as Boat).CylinderVolume}, Fuel type: {(vehicle as Boat).FuelType}. " +
 $"Length: {(vehicle as Boat).Length}.\n");
 
-                        break;
+                        return "Listed single boat.";
                     }
                 case "Motorcycle":
                     {
                         Console.WriteLine($"Cylinder volume: {(vehicle as Motorcycle).CylinderVolume}, Fuel type: {(vehicle as Motorcycle).FuelType}. \n");
-                        break;
+                        return "Listed single motorcycle.";
                     }
                 case "Bicycle":
                     {
                         Console.WriteLine($"Number of seats: {(vehicle as Bicycle).NumberOfSeats}.\n");
-                        break;
+                        return "Listed single bicycle.";
                     }
                 case "Bus":
                     {
                         Console.WriteLine($"Cylinder volume: {(vehicle as Bus).CylinderVolume}, Fuel type: {(vehicle as Bus).FuelType}." +
 $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).Length}.\n");
 
-                        break;
+                        return "Listed single bus.";
                     }
                 case "Airplane":
                     {
                         Console.WriteLine($"Number of engines: {(vehicle as Airplane).NumberOfEngines}, Cylinder volume: {(vehicle as Airplane).CylinderVolume}, Fuel type: {(vehicle as Airplane).FuelType}. " +
                             $"Number of seats: {(vehicle as Airplane).NumberOfSeats}, Length: {(vehicle as Airplane).Length}.\n");
-                        break;
+                        return "Listed single airplane.";
                     }
 
                 default:
                     {
                         Console.WriteLine("If you can read this, something has gone wrong.\n");
-                        break;
+                        return "Default error. Vehicle type not recognized.";
                     }
             }
         }
 
-        public void MultiFilterVehicle(string input)
+        public string MultiFilterVehicle(string input)
         {
             string[] filterValues = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
@@ -174,6 +189,8 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             {
                 ListSingleVehicle(vehicle);
             }
+
+            return "Successful multifilter.";
         }
 
         private Vehicle FindVehicleByLicense(string license)
@@ -200,7 +217,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return collection.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        private void PrintListTitle(int count, FilterData data)
+        private string PrintListTitle(int count, FilterData data)
         {
 
             if (data.IsEmpty())
@@ -217,7 +234,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
                 if (data.WheelsFilter != -1) { Console.Write($" '{data.WheelsFilter} wheel(s)'"); }
                 Console.WriteLine(".\n");
             }
-
+            return "Successful print list title.";
         }
         private IEnumerable<Vehicle> PerformFilter(FilterData data)
         {
