@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using The_Garage_Exercise.Enums;
 using The_Garage_Exercise.Tools;
 using The_Garage_Exercise.Vehicles;
@@ -21,47 +20,6 @@ namespace The_Garage_Exercise.Garage
                 PopulateGarage((size < 5) ? size : 5);
             }
         }
-
-        //public static int SizeGarage()
-        //{
-        //    Console.Write("\nPlease specify size of garage (at least 5 is recommended): ");
-
-        //    while (true)
-        //    {
-        //        bool success = int.TryParse(Console.ReadLine(), out int size);
-        //        if (success)
-        //            return size;
-        //        else
-        //            Console.Write("\nThat is not a legitimate number." +
-        //            "\nPlease specify size of garage: ");
-        //    }
-        //}
-
-        //public void PopulateOrNot()
-        //{
-        //    Console.Write("\nWould you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
-
-        //    string populateOrNot = Console.ReadLine().ToLower();
-
-        //    switch (populateOrNot)
-        //    {
-        //        case "y":
-        //            {
-        //                Console.WriteLine("\nOkay, the garage will be populated with five vehicles " +
-        //                    "\n(or fewer depending on size).");
-
-        //                PopulateGarage((_garage.NumberOfParkingSpots < 5) ? _garage.NumberOfParkingSpots : 5);
-        //                break;
-        //            }
-
-        //        case "n":
-        //        default:
-        //            {
-        //                Console.WriteLine("\nThis garage will be empty from the start.");
-        //                break;
-        //            }
-        //    }
-        //}
 
         public void PopulateGarage(int number)
         {
