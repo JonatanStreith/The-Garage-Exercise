@@ -5,6 +5,7 @@ using The_Garage_Exercise.Vehicles;
 using The_Garage_Exercise.Enums;
 using System.Linq;
 using The_Garage_Exercise.Tools;
+using System.Collections.Generic;
 
 namespace The_Garage_Exercise.Test
 {
@@ -138,20 +139,45 @@ namespace The_Garage_Exercise.Test
             Assert.NotEqual(find, testVehicle);
         }
 
-        //TODO
         //ListParkedVehicles
+        [Fact]
+        public void CanListVehicles()
+        {
+            List<Vehicle> cars = handler.ListParkedVehicles("car");
+            List<Vehicle> all = handler.ListParkedVehicles("all");
 
-        //TODO
-        //ListSingleVehicle
+            Assert.True(cars.All(vehicle => vehicle.GetType() == typeof(Car)));
+            Assert.True(cars.All(vehicle => handler.Garage.Contains(vehicle)));
+
+            Assert.True(all.All(vehicle => handler.Garage.Contains(vehicle)));
+        }
+
 
         //MultiFilterVehicle
+        [Fact]
+        public void CanFilterFromLegitimateString()
+        {
+            handler.ParkVehicle(testVehicle);
 
+            (List<Vehicle> results, FilterData data) = handler.MultiFilterVehicle("car 4 wheels red land");
+
+            Assert.Equal("car", data.TypeFilter);
+            Assert.Equal("red", data.ColorFilter);
+            Assert.Equal("land", data.MobilityFilter);
+            Assert.Equal(4, data.WheelsFilter);
+
+            Assert.True(results.All(vehicle => handler.Garage.Contains(vehicle)));
+            Assert.True(results.All(vehicle => vehicle.Wheels == 4));
+            Assert.True(results.All(vehicle => vehicle.GetType() == typeof(Car)));
+            Assert.True(results.All(vehicle => vehicle.Color == Color.red));
+            Assert.True(results.All(vehicle => vehicle.Mobility == Mobility.land));
+        }
 
         //MultiFilterParse
         [Fact]
         public void CanCreateFilterDataFromInput()
         {
-            FilterData data = handler.MultiFilterParse(new string[] {"black", "land", "car", "4", "wheels"});
+            FilterData data = handler.MultiFilterParse(new string[] { "black", "land", "car", "4", "wheels" });
 
             Assert.Equal("car", data.TypeFilter);
             Assert.Equal("black", data.ColorFilter);
@@ -194,7 +220,7 @@ namespace The_Garage_Exercise.Test
 
             Assert.True(results.All(vehicle => handler.Garage.Contains(vehicle)));
             Assert.True(results.All(vehicle => vehicle.Wheels == 4));
-            Assert.True(results.All(vehicle => vehicle.GetType().Name == "Car"));
+            Assert.True(results.All(vehicle => vehicle.GetType() == typeof(Car)));
             Assert.True(results.All(vehicle => vehicle.Color == Color.black));
             Assert.True(results.All(vehicle => vehicle.Mobility == Mobility.land));
 
@@ -214,9 +240,5 @@ namespace The_Garage_Exercise.Test
             Assert.False(resultSmall);
 
         }
-
-        //CheckForDuplicate
-
-
     }
 }
