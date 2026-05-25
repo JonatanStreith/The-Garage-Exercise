@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using The_Garage_Exercise.Garage;
 using The_Garage_Exercise.Tools;
 using The_Garage_Exercise.Vehicles;
-using System.Runtime.CompilerServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace The_Garage_Exercise.Managers
 {
@@ -71,7 +72,25 @@ namespace The_Garage_Exercise.Managers
         {
             string listPrompt = "\nPlease specify category of vehicle (or all): ";
 
-            Handler.ListParkedVehicles(Helper.GetInput(listPrompt));
+            string input = Helper.GetInput(listPrompt);
+
+            if (input == "") input = "all";
+
+            List<Vehicle> results = Handler.ListParkedVehicles(input);
+
+            Console.WriteLine($"\nListing vehicles of category '{input}':\n");
+
+            foreach (Vehicle vehicle in results)
+            {
+                ListSingleVehicle(vehicle);
+            }
+
+
+            if (input == "all")
+                Console.WriteLine($"Total {results.Count} vehicles.");
+            else
+                Console.WriteLine($"Total {results.Count} {input}s.");
+
         }
 
         internal void MultiFilterVehicle()
@@ -88,7 +107,16 @@ namespace The_Garage_Exercise.Managers
 
 
 
-            Handler.MultiFilterVehicle(Helper.GetInput(multiFilterPrompt));
+            (List<Vehicle> finalList, FilterData data) = Handler.MultiFilterVehicle(Helper.GetInput(multiFilterPrompt));
+
+            PrintListTitle(finalList.Count, data);
+
+            foreach (Vehicle vehicle in finalList)
+            {
+                ListSingleVehicle(vehicle);
+            }
+
+
         }
 
         internal void ParkVehicle()
@@ -123,5 +151,80 @@ namespace The_Garage_Exercise.Managers
 
             Handler.RetrieveVehicle(Helper.GetInput(retrievePrompt));
         }
+
+
+        private string ListSingleVehicle(Vehicle vehicle)
+        {
+            Console.WriteLine($"License number: {vehicle.License}, Owner: {vehicle.Owner}, Type: {vehicle.GetType().Name}." +
+                $"\nColor: {vehicle.Color}, Number of wheels: {vehicle.Wheels}, Mobility type: {vehicle.Mobility}.");
+            switch (vehicle.GetType().Name)
+            {
+                case "Car":
+                    {
+                        Console.WriteLine($"Cylinder volume: {(vehicle as Car).CylinderVolume}, Fuel type: {(vehicle as Car).FuelType}. " +
+$"Number of seats: {(vehicle as Car).NumberOfSeats}.\n");
+
+                        return "Listed single car.";
+                    }
+                case "Boat":
+                    {
+                        Console.WriteLine($"Cylinder volume: {(vehicle as Boat).CylinderVolume}, Fuel type: {(vehicle as Boat).FuelType}. " +
+$"Length: {(vehicle as Boat).Length}.\n");
+
+                        return "Listed single boat.";
+                    }
+                case "Motorcycle":
+                    {
+                        Console.WriteLine($"Cylinder volume: {(vehicle as Motorcycle).CylinderVolume}, Fuel type: {(vehicle as Motorcycle).FuelType}. \n");
+                        return "Listed single motorcycle.";
+                    }
+                case "Bicycle":
+                    {
+                        Console.WriteLine($"Number of seats: {(vehicle as Bicycle).NumberOfSeats}.\n");
+                        return "Listed single bicycle.";
+                    }
+                case "Bus":
+                    {
+                        Console.WriteLine($"Cylinder volume: {(vehicle as Bus).CylinderVolume}, Fuel type: {(vehicle as Bus).FuelType}." +
+$"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).Length}.\n");
+
+                        return "Listed single bus.";
+                    }
+                case "Airplane":
+                    {
+                        Console.WriteLine($"Number of engines: {(vehicle as Airplane).NumberOfEngines}, Cylinder volume: {(vehicle as Airplane).CylinderVolume}, Fuel type: {(vehicle as Airplane).FuelType}. " +
+                            $"Number of seats: {(vehicle as Airplane).NumberOfSeats}, Length: {(vehicle as Airplane).Length}.\n");
+                        return "Listed single airplane.";
+                    }
+
+                default:
+                    {
+                        Console.WriteLine("If you can read this, something has gone wrong.\n");
+                        return "Default error. Vehicle type not recognized.";
+                    }
+            }
+        }
+
+        private string PrintListTitle(int count, FilterData data)
+        {
+
+            if (data.IsEmpty())
+            {
+                Console.WriteLine($"\nNo filters. {count} (all) entires found.");
+            }
+            else
+            {
+                Console.Write($"\n{count} entires found matching the search for");
+
+                if (data.ColorFilter != null) { Console.Write($" '{data.ColorFilter}'"); }
+                if (data.MobilityFilter != null) { Console.Write($" '{data.MobilityFilter}'"); }
+                if (data.TypeFilter != null) { Console.Write($" '{data.TypeFilter}'"); }
+                if (data.WheelsFilter != -1) { Console.Write($" '{data.WheelsFilter} wheel(s)'"); }
+                Console.WriteLine(".\n");
+            }
+            return "Successful print list title.";
+        }
+
+
     }
 }

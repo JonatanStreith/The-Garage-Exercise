@@ -98,84 +98,17 @@ namespace The_Garage_Exercise.Garage
             }
         }
 
-        public string ListParkedVehicles(string input)
+        internal List<Vehicle> ListParkedVehicles(string input)
         {
-            if (input == "") input = "all";
 
-            Console.WriteLine($"\nListing vehicles of category '{input}':\n");
-
-            List<Vehicle> results = _garage.Where(vehicle =>
+            return _garage.Where(vehicle =>
             input == "all" ||
             vehicle.GetType().Name.Equals(input, StringComparison.OrdinalIgnoreCase)
             ).OrderBy(vehicle => vehicle.GetType().Name).ToList();
-
-            foreach (Vehicle vehicle in results)
-            {
-                ListSingleVehicle(vehicle);
-            }
-
-
-            if (input == "all")
-                Console.WriteLine($"Total {results.Count} vehicles.");
-            else
-                Console.WriteLine($"Total {results.Count} {input}s.");
-
-            return $"Listed {results.Count} vehicles of type {input}.";
         }
 
-        private string ListSingleVehicle(Vehicle vehicle)
-        {
-            Console.WriteLine($"License number: {vehicle.License}, Owner: {vehicle.Owner}, Type: {vehicle.GetType().Name}." +
-                $"\nColor: {vehicle.Color}, Number of wheels: {vehicle.Wheels}, Mobility type: {vehicle.Mobility}.");
-            switch (vehicle.GetType().Name)
-            {
-                case "Car":
-                    {
-                        Console.WriteLine($"Cylinder volume: {(vehicle as Car).CylinderVolume}, Fuel type: {(vehicle as Car).FuelType}. " +
-$"Number of seats: {(vehicle as Car).NumberOfSeats}.\n");
 
-                        return "Listed single car.";
-                    }
-                case "Boat":
-                    {
-                        Console.WriteLine($"Cylinder volume: {(vehicle as Boat).CylinderVolume}, Fuel type: {(vehicle as Boat).FuelType}. " +
-$"Length: {(vehicle as Boat).Length}.\n");
-
-                        return "Listed single boat.";
-                    }
-                case "Motorcycle":
-                    {
-                        Console.WriteLine($"Cylinder volume: {(vehicle as Motorcycle).CylinderVolume}, Fuel type: {(vehicle as Motorcycle).FuelType}. \n");
-                        return "Listed single motorcycle.";
-                    }
-                case "Bicycle":
-                    {
-                        Console.WriteLine($"Number of seats: {(vehicle as Bicycle).NumberOfSeats}.\n");
-                        return "Listed single bicycle.";
-                    }
-                case "Bus":
-                    {
-                        Console.WriteLine($"Cylinder volume: {(vehicle as Bus).CylinderVolume}, Fuel type: {(vehicle as Bus).FuelType}." +
-$"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).Length}.\n");
-
-                        return "Listed single bus.";
-                    }
-                case "Airplane":
-                    {
-                        Console.WriteLine($"Number of engines: {(vehicle as Airplane).NumberOfEngines}, Cylinder volume: {(vehicle as Airplane).CylinderVolume}, Fuel type: {(vehicle as Airplane).FuelType}. " +
-                            $"Number of seats: {(vehicle as Airplane).NumberOfSeats}, Length: {(vehicle as Airplane).Length}.\n");
-                        return "Listed single airplane.";
-                    }
-
-                default:
-                    {
-                        Console.WriteLine("If you can read this, something has gone wrong.\n");
-                        return "Default error. Vehicle type not recognized.";
-                    }
-            }
-        }
-
-        public string MultiFilterVehicle(string input)
+        public (List<Vehicle>, FilterData) MultiFilterVehicle(string input)
         {
             string[] filterValues = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
@@ -183,14 +116,8 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
 
             List<Vehicle> finalList = PerformFilter(data).ToList();
 
-            PrintListTitle(finalList.Count, data);
+            return (finalList, data);
 
-            foreach (Vehicle vehicle in finalList)
-            {
-                ListSingleVehicle(vehicle);
-            }
-
-            return "Successful multifilter.";
         }
 
         internal Vehicle FindVehicleByLicense(string license)
@@ -217,25 +144,6 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return collection.Where(p => p.GetType().Name.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
 
-        private string PrintListTitle(int count, FilterData data)
-        {
-
-            if (data.IsEmpty())
-            {
-                Console.WriteLine($"\nNo filters. {count} (all) entires found.");
-            }
-            else
-            {
-                Console.Write($"\n{count} entires found matching the search for");
-
-                if (data.ColorFilter != null) { Console.Write($" '{data.ColorFilter}'"); }
-                if (data.MobilityFilter != null) { Console.Write($" '{data.MobilityFilter}'"); }
-                if (data.TypeFilter != null) { Console.Write($" '{data.TypeFilter}'"); }
-                if (data.WheelsFilter != -1) { Console.Write($" '{data.WheelsFilter} wheel(s)'"); }
-                Console.WriteLine(".\n");
-            }
-            return "Successful print list title.";
-        }
         internal IEnumerable<Vehicle> PerformFilter(FilterData data)
         {
 
