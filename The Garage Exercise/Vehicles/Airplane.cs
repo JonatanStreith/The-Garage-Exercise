@@ -33,7 +33,7 @@ namespace The_Garage_Exercise.Vehicles
 
         public static Vehicle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
-            if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 1)
+            if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 5)
             {
                 Console.WriteLine("Sorry, incomplete registration.");
                 return null;
