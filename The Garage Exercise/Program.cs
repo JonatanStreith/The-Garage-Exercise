@@ -12,12 +12,6 @@ namespace The_Garage_Exercise
             GarageManager manager = new GarageManager();
 
             manager.InitializeGarage();
-
-            //GarageHandler garageHandler = new GarageHandler();
-
-            //Menu.DisplayMenu();
-
-            //Menu.MakeChoice(garageHandler);
         }
     }
 }

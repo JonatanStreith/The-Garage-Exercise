@@ -76,7 +76,6 @@ namespace The_Garage_Exercise
                             return;
                         }
 
-
                     default:
                         {
                             Console.WriteLine("\nThat is not an acceptable choice."); ;
@@ -93,6 +92,5 @@ namespace The_Garage_Exercise
             else
                 return string.Concat(input[0].ToString().ToUpper(), input.AsSpan(1));
         }
-
     }
 }

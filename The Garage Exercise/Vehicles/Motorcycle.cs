@@ -54,6 +54,5 @@ namespace The_Garage_Exercise.Vehicles
                 );
             }
         }
-
     }
 }

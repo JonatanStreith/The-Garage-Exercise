@@ -7,9 +7,6 @@ namespace The_Garage_Exercise.Tools
 {
     public interface IVehicle
     {
-
-
         internal static abstract Vehicle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo);
-
     }
 }

@@ -33,13 +33,11 @@ namespace The_Garage_Exercise.Vehicles
 
         public static Vehicle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
-
             if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 1)
             {
                 Console.WriteLine("Sorry, incomplete registration.");
                 return null;
             }
-
 
             bool validInputs = (    //Assessing if all these inputs are valid
                 Color.TryParse(generalInfo[0], out Color color) &
@@ -69,6 +67,5 @@ namespace The_Garage_Exercise.Vehicles
                 );
             }
         }
-
     }
 }

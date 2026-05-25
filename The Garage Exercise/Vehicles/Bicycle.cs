@@ -19,8 +19,6 @@ namespace The_Garage_Exercise.Vehicles
 
         public static Vehicle RegisterVehicle(string[] ownership, string[] generalInfo, string[] typeInfo)
         {
-
-
             if (ownership.Length != 2 || generalInfo.Length != 3 || typeInfo.Length != 1)
             {
                 Console.WriteLine("Sorry, incomplete registration.");
@@ -40,7 +38,6 @@ namespace The_Garage_Exercise.Vehicles
                 "\nPlease try again later.");
                 return null;
             }
-
             else
             {
                 Console.WriteLine("Thank you. Generating registry information...");
@@ -50,10 +47,6 @@ namespace The_Garage_Exercise.Vehicles
                 numSeats
                 );
             }
-
         }
-
-
-
     }
 }

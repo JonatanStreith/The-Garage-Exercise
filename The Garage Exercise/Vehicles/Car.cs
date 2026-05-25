@@ -17,7 +17,6 @@ namespace The_Garage_Exercise.Vehicles
             CylinderVolume = cylinderVolume;
             FuelType = fuelType;
             NumberOfSeats = numberOfSeats;
-
         }
 
         public int CylinderVolume { get { return _cylinderVolume; } set { _cylinderVolume = value; } }
@@ -46,7 +45,6 @@ namespace The_Garage_Exercise.Vehicles
                 Console.WriteLine("There were errors and the registration could not be completed." +
                 "\nPlease try again later.");
                 return null;
-
             }
 
             else
@@ -59,6 +57,5 @@ namespace The_Garage_Exercise.Vehicles
                 );
             }
         }
-
     }
 }
