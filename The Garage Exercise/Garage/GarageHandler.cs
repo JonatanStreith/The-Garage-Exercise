@@ -193,7 +193,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return "Successful multifilter.";
         }
 
-        private Vehicle FindVehicleByLicense(string license)
+        internal Vehicle FindVehicleByLicense(string license)
         {
             return _garage.FirstOrDefault<Vehicle>(x => x.License.Equals(license, StringComparison.OrdinalIgnoreCase), null);
         }
@@ -236,7 +236,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             }
             return "Successful print list title.";
         }
-        private IEnumerable<Vehicle> PerformFilter(FilterData data)
+        internal IEnumerable<Vehicle> PerformFilter(FilterData data)
         {
 
             IEnumerable<Vehicle> collection;
@@ -259,7 +259,7 @@ $"Number of seats: {(vehicle as Bus).NumberOfSeats}, Length: {(vehicle as Bus).L
             return collection.OrderBy(vehicle => vehicle.GetType().Name);
         }
 
-        private FilterData MultiFilterParse(string[] input)
+        internal FilterData MultiFilterParse(string[] input)
         {
             string? typeFilter = null;
             string? mobilityFilter = null;

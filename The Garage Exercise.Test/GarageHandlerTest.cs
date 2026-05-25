@@ -4,15 +4,22 @@ using The_Garage_Exercise.Garage;
 using The_Garage_Exercise.Vehicles;
 using The_Garage_Exercise.Enums;
 using System.Linq;
+using The_Garage_Exercise.Tools;
 
 namespace The_Garage_Exercise.Test
 {
     public class GarageHandlerTest
     {
 
+        GarageHandler handler = new Garage.GarageHandler(10, true);
+
         Vehicle testVehicle = new Car("CSharpRulez", "Steve", Color.red, 4, Mobility.land, 2000, FuelType.gasoline, 5);
+        Vehicle badVehicle = new Bicycle("CSharpRulez", "Donny", Color.green, 2, Mobility.land, 1);
         Vehicle nullVehicle = null;
 
+
+
+        //Constructor
         [Fact]
         public void CanCreateHandler()
         //Check that a GarageHandler can be created
@@ -40,32 +47,176 @@ namespace The_Garage_Exercise.Test
             Assert.Empty(handler2.Garage);
         }
 
+        //Parkvehicle
         [Fact]
         public void CanParkVehicle()
         {
 
-            GarageHandler handler = new Garage.GarageHandler(10, true);
             int initialOccupancy = handler.Garage.Count();
 
-            handler.ParkVehicle(testVehicle);
+            string result = handler.ParkVehicle(testVehicle);
 
             Assert.Equal(handler.Garage.Count(), initialOccupancy + 1);
             Assert.Contains(testVehicle, handler.Garage);
+            Assert.Equal("Parking of vehicle with license CSharpRulez successful.", result);
+
 
         }
 
         [Fact]
         public void CantParkNullVehicle()
         {
-            GarageHandler handler = new Garage.GarageHandler(10, true);
             int initialOccupancy = handler.Garage.Count();
 
-            handler.ParkVehicle(nullVehicle);
+            string result = handler.ParkVehicle(nullVehicle);
 
             Assert.Equal(handler.Garage.Count(), initialOccupancy);
             Assert.DoesNotContain(nullVehicle, handler.Garage);
+            Assert.Equal("Null vehicle.", result);
+        }
 
+        [Fact]
+        public void CantParkSameLicense()
+        {
+
+            handler.ParkVehicle(testVehicle);
+            Assert.Contains(testVehicle, handler.Garage);
+            int initialOccupancy = handler.Garage.Count();
+
+            string result = handler.ParkVehicle(badVehicle);
+
+
+            Assert.Equal(handler.Garage.Count(), initialOccupancy);
+            Assert.DoesNotContain(badVehicle, handler.Garage);
+            Assert.Equal("Duplicate license number.", result);
+        }
+
+        //RetrieveVehicle
+        [Fact]
+        public void CanRetrieveRealLicense()
+        {
+            handler.ParkVehicle(testVehicle);
+            Assert.Contains(testVehicle, handler.Garage);
+
+            string result = handler.RetrieveVehicle("CSharpRulez");
+            Assert.DoesNotContain(testVehicle, handler.Garage);
+            Assert.Equal("Retrieving of vehicle with license CSharpRulez successful.", result);
 
         }
+
+        [Fact]
+        public void CantRetrieveFakeLicense()
+        {
+            handler.ParkVehicle(testVehicle);
+            Assert.Contains(testVehicle, handler.Garage);
+
+            string result = handler.RetrieveVehicle("FakeLicense");
+            Assert.Contains(testVehicle, handler.Garage);
+            Assert.Equal("Vehicle with license FakeLicense not found.", result);
+        }
+
+        //FindVehicleByLicense
+        [Fact]
+        public void FindLegitimateLicense()
+        {
+            handler.ParkVehicle(testVehicle);
+
+            Vehicle find = handler.FindVehicleByLicense(testVehicle.License);
+
+            Assert.NotNull(find);
+            Assert.Equal(find, testVehicle);
+        }
+
+        [Fact]
+        public void DontFindFakeLicense()
+        {
+            handler.ParkVehicle(testVehicle);
+
+            Vehicle find = handler.FindVehicleByLicense("FAKE");
+
+            Assert.Null(find);
+            Assert.NotEqual(find, testVehicle);
+        }
+
+        //TODO
+        //ListParkedVehicles
+
+        //TODO
+        //ListSingleVehicle
+
+        //MultiFilterVehicle
+
+
+        //MultiFilterParse
+        [Fact]
+        public void CanCreateFilterDataFromInput()
+        {
+            FilterData data = handler.MultiFilterParse(new string[] {"black", "land", "car", "4", "wheels"});
+
+            Assert.Equal("car", data.TypeFilter);
+            Assert.Equal("black", data.ColorFilter);
+            Assert.Equal("land", data.MobilityFilter);
+            Assert.Equal(4, data.WheelsFilter);
+        }
+
+        [Fact]
+        public void CanCreateFilterDataFromInputAnyOrder()
+        {
+            FilterData data = handler.MultiFilterParse(new string[] { "4", "wheels", "black", "car", "land" });
+
+            Assert.Equal("car", data.TypeFilter);
+            Assert.Equal("black", data.ColorFilter);
+            Assert.Equal("land", data.MobilityFilter);
+            Assert.Equal(4, data.WheelsFilter);
+        }
+
+
+        [Fact]
+        public void IgnoresUnknownKeywords()
+        {
+            FilterData data = handler.MultiFilterParse(new string[] { "fnord", "frog", "space", "4", "doof" });
+
+            Assert.Null(data.TypeFilter);
+            Assert.Null(data.ColorFilter);
+            Assert.Null(data.MobilityFilter);
+            Assert.Equal(-1, data.WheelsFilter);
+        }
+
+        //PerformFilter
+        [Fact]
+        public void CanGetListFromFilter()
+        {
+            FilterData data = handler.MultiFilterParse(new string[] { "4", "wheels", "black", "car", "land" });
+
+            handler.ParkVehicle(testVehicle);
+
+            var results = handler.PerformFilter(data);
+
+            Assert.True(results.All(vehicle => handler.Garage.Contains(vehicle)));
+            Assert.True(results.All(vehicle => vehicle.Wheels == 4));
+            Assert.True(results.All(vehicle => vehicle.GetType().Name == "Car"));
+            Assert.True(results.All(vehicle => vehicle.Color == Color.black));
+            Assert.True(results.All(vehicle => vehicle.Mobility == Mobility.land));
+
+        }
+
+        //CheckForFreeSpot
+        [Fact]
+        public void CheckForSpot()
+        {
+            GarageHandler large = new(10, true);
+            GarageHandler small = new(3, true);
+
+            bool resultLarge = large.CheckForFreeSpot();
+            bool resultSmall = small.CheckForFreeSpot();
+
+            Assert.True(resultLarge);
+            Assert.False(resultSmall);
+
+        }
+
+        //CheckForDuplicate
+
+
     }
 }
