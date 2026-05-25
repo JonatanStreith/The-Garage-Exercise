@@ -9,7 +9,6 @@ namespace The_Garage_Exercise.Managers
 {
     internal class VehicleRegistrationManager
     {
-
         public static Vehicle RegisterVehicle()
         {
             string registerMessage = "\nYou are required to provide the specifics of your vehicle for the registry." +

@@ -66,8 +66,6 @@ namespace The_Garage_Exercise.Managers
             }
         }
 
-
-
         internal void ListParkedVehicles()
         {
             string listPrompt = "\nPlease specify category of vehicle (or all): ";
