@@ -10,7 +10,7 @@ namespace The_Garage_Exercise.Test
         [Fact]
         public void TestHelperCanReturnSpoofedData()
         {
-            TestHelper help = new TestHelper();
+            IHelper help = new TestHelper();
             string testmessage = "Sphinx of black quartz, judge my vow";
 
             help.Output = testmessage;
