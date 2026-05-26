@@ -40,7 +40,7 @@ namespace The_Garage_Exercise.Managers
 
             while (true)
             {
-                bool success = int.TryParse(Console.ReadLine(), out int size);
+                bool success = int.TryParse(Help.GetInput(), out int size);
                 if (success)
                     return size;
                 else
@@ -51,9 +51,7 @@ namespace The_Garage_Exercise.Managers
 
         public bool PopulateOrNot()
         {
-            Console.Write("\nWould you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
-
-            string populateOrNot = Console.ReadLine().ToLower();
+            string populateOrNot = Help.GetInput("\nWould you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
 
             switch (populateOrNot)
             {
