@@ -13,9 +13,7 @@ namespace The_Garage_Exercise.Test
 {
     public class GarageManagerTest
     {
-
         GarageManager manager = new GarageManager(new TestHelper());
-
         GarageHandler handler = new GarageHandler(10, true);
 
         [Fact]
@@ -67,14 +65,12 @@ namespace The_Garage_Exercise.Test
             manager.ParkVehicle();
             Vehicle foundVehicle = handler.FindVehicleByLicense("567ABC");
             Assert.NotNull(foundVehicle);
-
         }
 
         [Fact]
         public void CanRetrieveVehicle()
         {
             Vehicle testVehicle = new Car("CSharpRulez", "Steve", Enums.Color.red, 4, Mobility.land, 2000, FuelType.gasoline, 5);
-
 
             manager.Handler = handler;
 
