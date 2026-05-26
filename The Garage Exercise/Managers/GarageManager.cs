@@ -14,9 +14,14 @@ namespace The_Garage_Exercise.Managers
 
         private GarageHandler Handler { get; set; }
 
+
+        private IHelper Help { get; set; }
+
         internal void InitializeGarage()
         {
             Handler = new GarageHandler(SizeGarage(), PopulateOrNot());
+
+            Help = new Helper();
 
             Menu.DisplayMenu();
 
@@ -70,7 +75,7 @@ namespace The_Garage_Exercise.Managers
         {
             string listPrompt = "\nPlease specify category of vehicle (or all): ";
 
-            string input = Helper.GetInput(listPrompt);
+            string input = Help.GetInput(listPrompt);
 
             if (input == "") input = "all";
 
@@ -105,7 +110,7 @@ namespace The_Garage_Exercise.Managers
 
 
 
-            (List<Vehicle> finalList, FilterData data) = Handler.MultiFilterVehicle(Helper.GetInput(multiFilterPrompt));
+            (List<Vehicle> finalList, FilterData data) = Handler.MultiFilterVehicle(Help.GetInput(multiFilterPrompt));
 
             PrintListTitle(finalList.Count, data);
 
@@ -132,7 +137,7 @@ namespace The_Garage_Exercise.Managers
 
             Console.WriteLine($"\nA parking spot is available.");
 
-            Vehicle vehicle = VehicleRegistrationManager.RegisterVehicle();
+            Vehicle vehicle = VehicleRegistrationManager.RegisterVehicle(Help);
 
             if (vehicle == null)
             {
@@ -147,7 +152,7 @@ namespace The_Garage_Exercise.Managers
         {
             string retrievePrompt = "\nPlease provide the license number of the vehicle you wish to retrieve: ";
 
-            Handler.RetrieveVehicle(Helper.GetInput(retrievePrompt));
+            Handler.RetrieveVehicle(Help.GetInput(retrievePrompt));
         }
 
 

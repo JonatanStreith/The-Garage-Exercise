@@ -9,7 +9,8 @@ namespace The_Garage_Exercise.Managers
 {
     internal class VehicleRegistrationManager
     {
-        public static Vehicle RegisterVehicle()
+
+        public static Vehicle RegisterVehicle(IHelper Help)
         {
             string registerMessage = "\nYou are required to provide the specifics of your vehicle for the registry." +
                             "\nMultiple inputs must be separated by a comma. Some inputs may be specific types." +
@@ -49,7 +50,7 @@ namespace The_Garage_Exercise.Managers
 
             Vehicle? vehicle;
 
-            string type = Helper.GetInput(specTypePrompt);
+            string type = Help.GetInput(specTypePrompt);
 
             if (!Enum.IsDefined(typeof(VehicleTypes), type))
             {
@@ -57,10 +58,10 @@ namespace The_Garage_Exercise.Managers
                 return null;
             }
 
-            string[] ownership = Helper.GetInput(ownershipPrompt)
+            string[] ownership = Help.GetInput(ownershipPrompt)
                 .Split(",").Select(x => x.Trim()).ToArray();
 
-            string[] generalInfo = Helper.GetInput(generalInfoPrompt)
+            string[] generalInfo = Help.GetInput(generalInfoPrompt)
                 .Split(",").Select(x => x.Trim()).ToArray();
 
             string[] typeInfo;
@@ -69,7 +70,7 @@ namespace The_Garage_Exercise.Managers
             {
                 case "car":
                     {
-                        typeInfo = Helper.GetInput(carTypePrompt)
+                        typeInfo = Help.GetInput(carTypePrompt)
                             .Split(",").Select(x => x.Trim()).ToArray();
 
                         return Car.RegisterVehicle(ownership, generalInfo, typeInfo);
@@ -77,35 +78,35 @@ namespace The_Garage_Exercise.Managers
 
                 case "bus":
                     {
-                        typeInfo = Helper.GetInput(busTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
+                        typeInfo = Help.GetInput(busTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
 
                         return Bus.RegisterVehicle(ownership, generalInfo, typeInfo);
                     }
 
                 case "motorcycle":
                     {
-                        typeInfo = Helper.GetInput(motorcycleTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
+                        typeInfo = Help.GetInput(motorcycleTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
 
                         return Motorcycle.RegisterVehicle(ownership, generalInfo, typeInfo);
                     }
 
                 case "bicycle":
                     {
-                        typeInfo = Helper.GetInput(bicycleTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
+                        typeInfo = Help.GetInput(bicycleTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
 
                         return Bicycle.RegisterVehicle(ownership, generalInfo, typeInfo);
                     }
 
                 case "boat":
                     {
-                        typeInfo = Helper.GetInput(boatTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
+                        typeInfo = Help.GetInput(boatTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
 
                         return Boat.RegisterVehicle(ownership, generalInfo, typeInfo);
                     }
 
                 case "airplane":
                     {
-                        typeInfo = Helper.GetInput(airplaneTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
+                        typeInfo = Help.GetInput(airplaneTypePrompt).Split(",").Select(x => x.Trim()).ToArray();
 
                         return Airplane.RegisterVehicle(ownership, generalInfo, typeInfo);
                     }
