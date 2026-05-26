@@ -17,11 +17,14 @@ namespace The_Garage_Exercise.Managers
 
         private IHelper Help { get; set; }
 
+        public GarageManager()
+        {
+            Help = new Helper();
+        }
+
         internal void InitializeGarage()
         {
             Handler = new GarageHandler(SizeGarage(), PopulateOrNot());
-
-            Help = new Helper();
 
             Menu.DisplayMenu();
 
