@@ -34,7 +34,7 @@ namespace The_Garage_Exercise.Managers
 
 
 
-        public static int SizeGarage()
+        public int SizeGarage()
         {
             Console.Write("\nPlease specify size of garage (at least 5 is recommended): ");
 
