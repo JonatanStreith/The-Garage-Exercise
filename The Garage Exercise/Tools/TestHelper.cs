@@ -14,5 +14,10 @@ namespace The_Garage_Exercise.Tools
             return Output;
         }
 
+        public string GetInput()
+        {
+            return Output;
+        }
+
     }
 }

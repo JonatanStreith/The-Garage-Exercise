@@ -7,6 +7,7 @@ namespace The_Garage_Exercise.Tools
     internal interface IHelper
     {
         public abstract string GetInput(string input);
+        public abstract string GetInput();
 
     }
 }

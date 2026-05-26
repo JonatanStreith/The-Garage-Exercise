@@ -12,5 +12,9 @@ namespace The_Garage_Exercise.Tools
 
             return Console.ReadLine().ToLower();
         }
+        public string GetInput()
+        {
+            return Console.ReadLine().ToLower();
+        }
     }
 }
