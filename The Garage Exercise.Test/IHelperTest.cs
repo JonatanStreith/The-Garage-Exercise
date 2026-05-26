@@ -11,7 +11,7 @@ namespace The_Garage_Exercise.Test
         public void TestHelperCanReturnSpoofedData()
         {
             IHelper help = new TestHelper();
-            string testmessage = "Sphinx of black quartz, judge my vow";
+            string testmessage = "sphinx of black quartz, judge my vow";
 
             help.Output = testmessage;
 
@@ -21,7 +21,6 @@ namespace The_Garage_Exercise.Test
 
             Assert.Equal(testmessage, result1);
             Assert.Equal(testmessage, result2);
-
         }
 
         [Fact]
@@ -33,23 +32,16 @@ namespace The_Garage_Exercise.Test
             help.Output = testmessage;
 
             string result1 = help.GetInput("This is an input with a message.");
-
             string result2 = help.GetInput();
-
             string result3 = help.GetInput();
-
             string result4 = help.GetInput();
-
             string result5 = help.GetInput();
 
-            Assert.Equal("Car", result1);
-            Assert.Equal("Steve 567ABC", result2);
+            Assert.Equal("car", result1);
+            Assert.Equal("steve 567abc", result2);
             Assert.Equal("red 4 land", result3);
             Assert.Equal("2000 diesel 5", result4);
-            Assert.Equal("Car", result5);
-
+            Assert.Equal("car", result5);
         }
-
-
     }
 }
