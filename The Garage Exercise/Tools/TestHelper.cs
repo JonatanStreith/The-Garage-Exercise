@@ -11,12 +11,12 @@ namespace The_Garage_Exercise.Tools
         {
             Console.WriteLine(message);
 
-            return Output;
+            return Output.ToLower();
         }
 
         public string GetInput()
         {
-            return Output;
+            return Output.ToLower();
         }
 
     }
