@@ -57,6 +57,20 @@ namespace The_Garage_Exercise.Test
         }
 
         [Fact]
+    public void CanParkVehicle()
+        {
+            manager.Handler = handler;
+            manager.Help = new MultiTestHelper();
+
+            manager.Help.Output = "Car;Steve, 567ABC;red, 4, land;2000, diesel, 5";
+
+            manager.ParkVehicle();
+            Vehicle foundVehicle = handler.FindVehicleByLicense("567ABC");
+            Assert.NotNull(foundVehicle);
+
+        }
+
+        [Fact]
         public void CanRetrieveVehicle()
         {
             Vehicle testVehicle = new Car("CSharpRulez", "Steve", Enums.Color.red, 4, Mobility.land, 2000, FuelType.gasoline, 5);
