@@ -6,7 +6,10 @@ namespace The_Garage_Exercise.Tools
 {
     internal class MultiTestHelper : IHelper
     {
-
+        //MultiTestHelper lagrar en array av strings.
+        //Den kan sättas genom att ge den en string som separeras av semikolon.
+        //När GetInput() anropas delar den ut nästa string i ordningen.
+        //Om alla strings delats ut börjar den om från början.
         private string[] _content;
         private int counter = -1;
         public string? Output { 
