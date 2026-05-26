@@ -12,14 +12,14 @@ namespace The_Garage_Exercise.Managers
     internal class GarageManager
     {
 
-        private GarageHandler Handler { get; set; }
+        internal GarageHandler Handler { get; set; }
 
 
-        private IHelper Help { get; set; }
+        internal IHelper Help { get; set; }
 
-        public GarageManager()
+        public GarageManager(IHelper help)
         {
-            Help = new Helper();
+            Help = help;
         }
 
         internal void InitializeGarage()
@@ -34,7 +34,7 @@ namespace The_Garage_Exercise.Managers
 
 
 
-        public int SizeGarage()
+        internal int SizeGarage()
         {
             Console.Write("\nPlease specify size of garage (at least 5 is recommended): ");
 
@@ -49,7 +49,7 @@ namespace The_Garage_Exercise.Managers
             }
         }
 
-        public bool PopulateOrNot()
+        internal bool PopulateOrNot()
         {
             string populateOrNot = Help.GetInput("\nWould you like to populate the garage with preexisting vehicles? (Y/N) [N]\n");
 

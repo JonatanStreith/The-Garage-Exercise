@@ -1,5 +1,6 @@
 ﻿using The_Garage_Exercise.Garage;
 using The_Garage_Exercise.Managers;
+using The_Garage_Exercise.Tools;
 
 namespace The_Garage_Exercise
 {
@@ -9,7 +10,7 @@ namespace The_Garage_Exercise
         {
             Console.WriteLine("Welcome to the garage!");
 
-            GarageManager manager = new GarageManager();
+            GarageManager manager = new GarageManager(new Helper());
 
             manager.InitializeGarage();
         }
