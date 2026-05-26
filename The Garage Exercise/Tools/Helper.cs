@@ -6,6 +6,8 @@ namespace The_Garage_Exercise.Tools
 {
     public class Helper : IHelper
     {
+        public string? Output { get; set; }
+
         public string GetInput(string message)
         {
             Console.WriteLine(message);
